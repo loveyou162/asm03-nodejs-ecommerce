@@ -1,0 +1,106 @@
+.products {
+  margin: 24px 0;
+  /* border: 1px solid #ccc; */
+  background-color: #f2f2f23f;
+  /* height: 30%; */
+}
+.product-title {
+  padding: 16px 16px 16px 0;
+  text-transform: uppercase;
+}
+
+.product-title p {
+  color: #9c9c9c;
+}
+.product-title h2 {
+  font-weight: 400;
+}
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  list-style: none;
+  gap: 16px;
+}
+
+.product-list li img {
+  width: 100%;
+  transition: 0.3s;
+}
+
+.product-list li img:hover {
+  opacity: 0.6;
+}
+.product-list li img:active {
+  opacity: 0.9;
+}
+
+.product-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+.product-list li h3 {
+  padding: 16px 0;
+}
+.product-list li p {
+  color: var(--blur-color);
+}
+
+.other-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: #f8f9fa;
+  justify-items: center;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.infoBox {
+  padding: 20%;
+}
+.letBox h2,
+.infoBox h2 {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.infoBox p {
+}
+
+.letBox {
+  padding: 48px 0;
+}
+
+.boxInput {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+}
+
+.groupInput {
+  display: flex;
+  align-items: center;
+}
+.address {
+  padding: 24px;
+  border: #9c9c9c;
+  outline: 1px solid #ccc;
+}
+
+.groupInput .address {
+  width: 300px;
+}
+
+.groupInput button {
+  padding: 24px;
+  border: none;
+  background-color: var(--text-color);
+  color: var(--white-color);
+  font-size: 1rem;
+  margin: 0;
+}

@@ -1,0 +1,128 @@
+.infoProduct {
+  display: grid;
+  grid-template-columns: 8% 42% 50%;
+  align-items: center;
+  margin: 32px auto;
+  gap: 16px;
+}
+
+.img-detail {
+  list-style: none;
+}
+
+.img-detail li > img {
+  width: 100%;
+}
+
+.imgMain {
+  width: 100%;
+}
+.directory {
+  display: flex;
+  gap: 8px;
+  padding: 10px 0;
+}
+.directory h4 {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.directory p {
+  color: var(--blur-color);
+}
+
+.box-infoDetail h1 {
+  font-weight: 500;
+}
+.box-infoDetail .price-detail {
+  padding: 24px 0;
+  font-size: 1.2rem;
+  color: var(--blur-color);
+}
+.price__detail-des {
+  color: var(--blur-color);
+}
+.custom-number-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px; /* Điều chỉnh chiều rộng của ô input */
+  position: relative;
+}
+
+.custom-number-input input {
+  text-align: center;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.custom-number-input button {
+  width: 30px; /* Điều chỉnh chiều rộng của nút mũi tên */
+  cursor: pointer;
+}
+.quantity-addCart {
+  display: flex;
+  align-items: center;
+}
+
+.custom-number-input {
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  width: 40%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* gap: 52px; */
+  color: var(--blur-color);
+}
+
+.custom-quantity {
+  display: flex;
+}
+
+.custom-quantity p {
+  padding: 4px 10px;
+}
+.custom-quantity button {
+  border: none;
+  background-color: transparent;
+}
+
+.btn-add-cart {
+  padding: 16px;
+  background-color: var(--text-color);
+  color: var(--white-color);
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+}
+.btn-add-cart:hover {
+  background-color: #292929d2;
+}
+.btn-add-cart:active {
+  background-color: #505050d2;
+}
+
+.product-description {
+  grid-column: 1/3;
+  margin-top: 64px;
+}
+
+.product-des button {
+  text-transform: uppercase;
+  padding: 13px;
+  background-color: var(--text-color);
+  color: var(--white-color);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.product-des h3 {
+  text-transform: uppercase;
+  margin: 16px 0;
+  font-weight: 500;
+}
+.product-des p {
+  white-space: pre-line;
+  color: var(--blur-color);
+}

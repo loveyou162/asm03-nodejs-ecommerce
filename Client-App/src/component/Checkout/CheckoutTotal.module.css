@@ -1,0 +1,45 @@
+.CheckoutTotal {
+  background-color: #f1f0f0;
+  padding: 32px;
+  height: fit-content;
+}
+
+.CheckoutTotal > h2 {
+  font-weight: 400;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.checkout-total__subtotal {
+  border-bottom: 1px solid #ccc;
+  display: grid;
+  grid-template-columns: 56% 44%;
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+  justify-items: stretch;
+}
+
+.checkout-total__subtotal > p {
+  color: #919191;
+  font-size: 0.9rem;
+}
+
+.checkout-total__all > h3 {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.checkout-total__subtotal > h4 {
+  font-weight: 500;
+  text-transform: capitalize;
+  font-size: 0.9rem;
+}
+
+.checkout-total__all {
+  padding: 12px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout-total__all > p {
+  font-size: 1.2rem;
+}

@@ -1,0 +1,17 @@
+.BannerInfo {
+  padding: 24px 24px 24px 32px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f5f5f5d7;
+  height: 250px;
+  grid-column: 1/3;
+}
+.BannerInfo h1 {
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.BannerInfo p {
+  color: var(--blur-color);
+}

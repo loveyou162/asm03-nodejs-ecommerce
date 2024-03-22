@@ -1,0 +1,39 @@
+.navleft {
+}
+.navleft p a {
+  text-decoration: none;
+  text-transform: capitalize;
+  /* color: var(--text-color); */
+  color: var(--blur-color);
+  display: block;
+}
+
+.navleft p {
+  padding: 8px;
+  display: block;
+}
+.groupLink p:hover {
+  background-color: #f0efef;
+}
+
+.nameApple {
+  font-weight: 400;
+  background-color: #000;
+  color: var(--white-color);
+  padding: 8px;
+  text-transform: uppercase;
+}
+.navleft h2,
+.navleft h3 {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.navleft h3 {
+  padding: 8px;
+  background-color: var(--grey-color);
+}
+p a:hover,
+p a.active {
+  color: rgb(250, 184, 42);
+}

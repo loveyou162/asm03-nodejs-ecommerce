@@ -1,0 +1,65 @@
+.cart-total {
+  background-color: #f1f0f0;
+  padding: 32px;
+  height: fit-content;
+}
+
+.cart-total > h2 {
+  font-weight: 400;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.cart-total__subtotal {
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+}
+
+.cart-total__subtotal > p {
+  color: #919191;
+}
+
+.cart-total__all > h3,
+.cart-total__subtotal > h3 {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.cart-total__all {
+  padding: 12px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-total__all > p {
+  font-size: 1.2rem;
+}
+
+.cart-total__box-voucher {
+  margin-top: 16px;
+}
+
+.cart-total__box-voucher input {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+.cart-total__box-voucher button {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  background-color: var(--text-color);
+  color: var(--white-color);
+  font-size: 1rem;
+  border: none;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.cart-total__box-voucher button:hover {
+  background-color: #3a3a3ae0;
+}

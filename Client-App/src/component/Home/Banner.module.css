@@ -1,0 +1,45 @@
+.bannerHeader {
+  position: relative;
+}
+
+.imgHeader {
+  width: 100%;
+  z-index: 1;
+}
+.ads {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 5%;
+  transform: translate(0, -50%);
+}
+
+.ads p,
+.ads h1 {
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.ads p {
+  font-size: 1rem;
+  color: #a3a3a3;
+}
+.ads h1 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--text-color);
+  padding-bottom: 16px;
+}
+.ads button {
+  font-size: 1.2rem;
+  font-style: italic;
+  border: none;
+  background-color: var(--text-color);
+  color: var(--white-color);
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.ads button:active {
+  background-color: #303030cc;
+}

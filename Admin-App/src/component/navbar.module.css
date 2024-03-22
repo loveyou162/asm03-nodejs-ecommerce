@@ -1,0 +1,48 @@
+.navbar a {
+}
+
+.list-menu {
+}
+
+.list-menu li {
+}
+
+.navbar .list-menu li button {
+  width: 100%;
+}
+
+.navbar .list-menu li button p {
+  font-weight: 500;
+}
+
+.navbar .list-menu li button,
+.navbar .list-menu li a {
+  color: #363636;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  transition: 0.2s;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background-color: transparent;
+}
+
+.navbar .list-menu li button:hover,
+.navbar .list-menu li a:hover {
+  background-color: #0083277e;
+  color: #ffffff;
+}
+
+.list-menu li a.active {
+  background-color: #008327;
+  color: rgb(255, 255, 255);
+}
+
+.list-menu li button ion-icon {
+  font-size: 1.2rem;
+}

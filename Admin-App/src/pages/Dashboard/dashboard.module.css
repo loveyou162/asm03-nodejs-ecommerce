@@ -1,0 +1,107 @@
+.dashboard {
+  padding: 16px;
+}
+
+.dashboard-review {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-collapse: collapse;
+  margin: 16px 0;
+  box-shadow: 0 0 10px rgba(0, 25, 107, 0.137);
+}
+.dashboard-review li {
+  border: 1px solid #e4e4e4ce;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+}
+.dashboard__all-money {
+  display: flex;
+}
+.dashboard__all-money > p {
+  font-weight: 600;
+}
+
+.dashboard-review li article > p {
+  color: #c2c2c2;
+  font-size: 0.9rem;
+}
+.dashboard-review li ion-icon {
+  font-size: 1.5rem;
+  color: #c2c2c2;
+}
+.dashboard > h3 {
+  margin: 16px 0;
+}
+
+.dashboard .product-search > input {
+  padding: 10px;
+  width: 50%;
+  outline: none;
+  border: 1px solid #ccc;
+}
+
+.dashboard > .product-table > tbody > tr > td,
+.dashboard > .product-table > thead > tr > th {
+  border: 1px solid #e0e0e0c5;
+  width: 100%;
+  padding: 8px;
+  color: #777777;
+}
+
+.dashboard > table {
+  /* border: 1px solid #ccc; */
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  margin: 16px 0;
+  overflow: scroll;
+}
+.dashboard > .product-table tr {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 18% 13% 12% 10% 12% 15% 10% 10%;
+}
+.dashboard > .product-table tr:nth-child(even) {
+  background-color: #f4f8fb;
+}
+.dashboard > .product-table > tbody > tr > th {
+  /* background-color: #ccc; */
+}
+
+.dashboard > .product-table > tbody > tr > td:nth-child(1) {
+  white-space: nowrap; /* Không chuyển hàng tự động */
+  overflow: hidden; /* Ẩn nội dung bị tràn */
+  text-overflow: ellipsis;
+}
+.dashboard > .product-table > tbody > tr > td:nth-child(4) {
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard > .product-table > tbody > tr > td:nth-child(4) > img {
+  width: 50%;
+  object-fit: cover;
+}
+.dashboard > .product-table > tbody > tr > td:nth-child(8) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard > .product-table > tbody > tr > td:nth-child(8) button {
+  padding: 8px 16px;
+  border: none;
+  color: white;
+  border-radius: 2px;
+  margin: 4px 4px;
+  background-color: #22ca80;
+
+  transition: 0.3s;
+}
+
+.dashboard > .product-table > tbody > tr > td:nth-child(8) button:hover {
+  background-color: #169b61;
+}

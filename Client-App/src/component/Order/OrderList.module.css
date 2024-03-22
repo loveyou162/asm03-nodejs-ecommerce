@@ -1,0 +1,49 @@
+.orderList > .tableOrder > tr th {
+  text-transform: uppercase;
+  /* border: 1px solid #000; */
+}
+
+.orderList > .tableOrder {
+  margin-top: 32px;
+}
+
+.orderList > .tableOrder tr {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 18% 18% 7% 10% 10% 7% 10% 10% 10%;
+}
+
+.orderList > .tableOrder tr td {
+  padding: 6px;
+  font-weight: 400;
+  color: #777777;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+}
+.orderList > .tableOrder tr td:nth-child(2),
+.orderList > .tableOrder tr td:nth-child(1) {
+  white-space: nowrap; /* Không chuyển hàng tự động */
+  overflow: hidden; /* Ẩn nội dung bị tràn */
+  text-overflow: ellipsis;
+  padding: 0 10px;
+}
+
+.orderList > .tableOrder tr td:nth-child(9) > a {
+  text-decoration: none;
+  color: #474747;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: transparent;
+  border: 2px solid #292929;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.orderList > .tableOrder tr td:nth-child(9) > a:hover {
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(75, 75, 75, 0.808);
+  color: #ffffff;
+  background: #000;
+}

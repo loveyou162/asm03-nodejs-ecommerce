@@ -1,0 +1,41 @@
+.root {
+  height: 100vh;
+}
+
+.tableMain {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  position: relative;
+  /* border: 1px solid #ccc; */
+}
+
+.tableMain .tr,
+.tableMain .tr .td {
+  border: 1px solid #ccc;
+}
+.tableMain .tr1 .td:first-child {
+  width: 10%;
+}
+.tableMain .tr .td:first-child h3 {
+  padding: 16px;
+  text-align: center;
+  color: #00a11b;
+}
+.tableMain .tr .td:last-child {
+  width: 60%;
+}
+
+.tr1 {
+  height: 5%;
+}
+.tr2 {
+  height: 95%;
+}
+
+.navbarCell,
+.mainCell {
+  vertical-align: top; /* Đặt dọc nội dung ở phía trên của ô */
+}
+.mainCell main {
+}

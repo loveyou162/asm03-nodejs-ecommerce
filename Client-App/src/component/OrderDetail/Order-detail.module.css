@@ -1,0 +1,26 @@
+.Order__List-Detail > .tableOrder > tr th {
+  text-transform: uppercase;
+  background-color: #f5f5f5d7;
+  /* border: 1px solid #000; */
+}
+
+.Order__List-Detail > .tableOrder {
+  margin-top: 32px;
+}
+
+.Order__List-Detail > .tableOrder tr {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 15% 10%;
+}
+
+.Order__List-Detail > .tableOrder tr td {
+  padding: 6px;
+  font-weight: 500;
+  color: #000000;
+  display: flex;
+  justify-content: center;
+}
+.img__order-detail {
+  width: 60%;
+}

@@ -1,0 +1,33 @@
+.Error-Page {
+  text-align: center;
+  padding: 32px;
+  line-height: 3.5rem;
+}
+
+.Error-Page > .group-btn-err {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px; */
+}
+.Error-Page > .group-btn-err a:nth-child(2),
+.Error-Page > .group-btn-err a:nth-child(1) {
+  margin: 0 8px;
+  text-decoration: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 16px;
+  transition: 0.3s;
+}
+.Error-Page > .group-btn-err a:nth-child(1) {
+  background-color: rgb(255, 111, 111);
+}
+.Error-Page > .group-btn-err a:nth-child(2) {
+  background-color: #00aa8e;
+}
+.Error-Page > .group-btn-err a:nth-child(2):hover {
+  background-color: #00c7a6ab;
+}
+.Error-Page > .group-btn-err a:nth-child(1):hover {
+  background-color: rgba(255, 111, 111, 0.63);
+}

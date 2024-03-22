@@ -1,0 +1,37 @@
+footer {
+  background-color: #000;
+  height: 250px;
+  position: relative;
+  bottom: 0;
+  margin-top: 70px;
+}
+
+.footer {
+  background-color: #000;
+  color: #fff;
+  display: grid;
+  margin: 0 20%;
+  grid-template-columns: repeat(3, 1fr);
+}
+.social,
+.company,
+.customer {
+  list-style: none;
+}
+.social li a,
+.company li a,
+.customer li a {
+  list-style: none;
+  color: #666666;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+.titleFooter {
+  padding: 16px 0;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+.company {
+}
+.social {
+}

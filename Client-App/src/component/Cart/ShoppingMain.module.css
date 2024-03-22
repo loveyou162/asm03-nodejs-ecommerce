@@ -1,0 +1,11 @@
+.shoppingMain > h2 {
+  margin: 24px 0;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.containerCart {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 16px;
+}

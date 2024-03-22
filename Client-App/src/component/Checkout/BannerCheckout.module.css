@@ -1,0 +1,29 @@
+.BannerCheckout {
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f1f0f0;
+  height: 200px;
+  grid-column: 1/3;
+  margin-bottom: 48px;
+}
+.BannerCheckout h1 {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.banner-checkout-title h3 {
+  text-transform: uppercase;
+  color: var(--text-color);
+  font-weight: 400;
+}
+
+.banner-checkout-title {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.banner-checkout-title h3:last-child {
+  color: var(--blur-color);
+}

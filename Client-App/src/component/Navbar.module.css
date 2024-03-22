@@ -1,0 +1,72 @@
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: center;
+  justify-items: center;
+  margin: 0 20%;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  height: 60px;
+  justify-content: space-between;
+  justify-items: center;
+  z-index: 500;
+}
+.navbar-left {
+  display: flex;
+  list-style: none;
+  gap: 16px;
+}
+.navbar-left li a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+.logo {
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+li a:hover,
+li a.active {
+  color: rgb(250, 184, 42);
+}
+.navbar-right {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+.navbar-right button {
+  color: var(--text-color);
+  font-size: 1.2rem;
+  border: none;
+  background-color: transparent;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.navbar-right p {
+  font-style: italic;
+}
+
+.navbar-right button:hover {
+  color: rgb(250, 184, 42);
+}
+
+.navbar-right button i {
+  color: #9c9c9c;
+}
+.box-account {
+  display: flex;
+}
+.navbar__group-account {
+  width: 100%;
+}
+.box-account > p {
+  /* padding: 0 16px; */
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
