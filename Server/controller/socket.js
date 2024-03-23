@@ -23,23 +23,76 @@ const initSocketIO = (server) => {
   io.on("connection", (socket) => {
     console.log("Client connected", socket.id);
     socket.on("newRoomId", async (data) => {
-      console.log(37, data);
-      if (data.newRoomId) {
+      // xóa hết sự có mặt khi người dùng tạo phòng mới
+      const rooms = socket.rooms;
+      for (const room of rooms) {
+        Room.deleteMany({ userId: data.user._id })
+          .then((room) => {
+            console.log("33", room);
+            console.log("đã xóa các phòng cũ của user đó");
+          })
+          .catch((err) => {
+            next(err);
+          });
+        // Message.deleteMany()
+        socket.leave(room);
+      }
+      socket.join(data.room);
+      if (data.room) {
+        const newMessage = new Message({
+          content: data.message,
+          userId: data.user,
+          roomId: data.roomId,
+          role: data.role,
+        });
+
         const newRoom = new Room({
-          roomId: data.newRoomId,
+          roomId: data.room,
           messages: [],
           userId: data.user,
         });
         await newRoom.save();
+        const arrRoom = await Room.find().populate("messages.messageId");
+        io.emit("c-tao-phong", arrRoom);
       }
     });
-    socket.on("clientSendMessage", async (data) => {
-      console.log(37, data);
+    socket.on("vao-phong", (data) => {
+      // xóa hết sự có mặt khi người dùng vào phòng mới
+      const rooms = socket.rooms;
+      for (const room of rooms) {
+        socket.leave(room);
+      }
+      socket.join(data);
+      Room.find({ roomId: data })
+        .populate("messages.messageId")
+        .then((result) => io.sockets.emit("vao-phong1", result))
+        .catch((err) => console.log(err));
+    });
+    socket.on("end-room", async (data) => {
+      const rooms = socket.rooms;
+      for (const room of rooms) {
+        await Room.deleteOne({ roomId: data.roomId });
+        await Message.deleteMany({
+          $or: [
+            { roomId: data.roomId }, // Tin nhắn có roomId
+            { roomId: null }, // Tin nhắn có roomId là null
+          ],
+        });
+        socket.leave(room);
+      }
+      Room.find()
+        // trả về tất cả các phòng
+        .then((ss) => io.sockets.emit("c-end-phong", ss))
+        .catch((err) => console.log(err));
+    });
+    // client và admin chat với nhau thì cập nhật trên mongo
+    socket.on("send-admin", async (data) => {
+      console.log(90, data);
       try {
         //tạo message mới khi có tin nhắn mới
         const newMessage = new Message({
           content: data.message,
-          userId: data.user,
+          // userId: data.user,
           roomId: data.roomId,
           role: data.role,
         });
@@ -52,25 +105,13 @@ const initSocketIO = (server) => {
         console.log(40, room);
         room.messages.push({ messageId: newMessage._id });
 
-        //nếu người dùng nhập tin nhắn là /end xóa toàn bộ và kết thúc cuộc trò chuyện
-        if (data.message === "/end") {
-          await Room.deleteOne({ roomId: data.roomId });
-          await Message.deleteMany({
-            $or: [
-              { roomId: data.roomId }, // Tin nhắn có roomId
-              { roomId: null }, // Tin nhắn có roomId là null
-            ],
-          });
-          io.emit("removeRoom", { remove: "remove-room" });
-        }
         await room.save();
-        const selectedRoom = await Room.findOne({ userId: data.user }).populate(
-          "messages.messageId"
-        );
-        console.log(66, selectedRoom);
+        const selectedRoom = await Room.findOne({
+          roomId: data.roomId,
+        }).populate("messages.messageId");
 
         //gửi tin nhắn cho toàn bộ client và admin
-        io.emit("clientReceiveMessage", {
+        io.in(data.roomId).emit(data.roomId, {
           message: newMessage,
           roomId: selectedRoom.roomId,
           room: selectedRoom,
@@ -79,6 +120,16 @@ const initSocketIO = (server) => {
       } catch (err) {
         console.log(err);
       }
+    });
+    socket.on("list-room", (data) => {
+      Room.find()
+        .populate("messages.messageId")
+        .then((room) => {
+          socket.emit("list-room1", room);
+        })
+        .catch((err) => {
+          next(err);
+        });
     });
     // Handle disconnections
     socket.on("disconnect", () => {

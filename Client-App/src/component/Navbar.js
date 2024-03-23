@@ -28,7 +28,7 @@ function Navbar() {
   const logoutHanler = async () => {
     localStorage.setItem("currenUser", false);
     localStorage.removeItem("currentName");
-    localStorage.removeItem("roomId");
+    localStorage.setItem("roomId", "");
     try {
       axios
         .get("http://localhost:5000/shop/logout", {

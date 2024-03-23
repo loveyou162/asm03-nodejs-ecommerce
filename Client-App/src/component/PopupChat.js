@@ -1,15 +1,17 @@
 import classes from "./Popupchat.module.css";
 import imgAdmin from "../assets/Resource Assignment 03/admin.png";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 const socket = io("http://localhost:5000");
 function PopupChat() {
+  console.log("start");
   //hàm ẩn hiện hộp chat
   const [active, setActive] = useState(false);
   const [message, setMessage] = useState("");
-  const [receiveMessage, setReceiveMessage] = useState("");
+  const [receiveMessage, setReceiveMessage] = useState(null);
+  const [roomId, setRoomId] = useState(localStorage.getItem("roomId") || "");
+  const chatMessagesRef = useRef(null);
   const currentUser = JSON.parse(localStorage.getItem("currentName"));
-  const roomId = localStorage.getItem("roomId");
   const dataSocket = {
     message: message,
     user: currentUser,
@@ -20,45 +22,88 @@ function PopupChat() {
     setActive(!active);
   };
   useEffect(() => {
-    socket.on("clientReceiveMessage", (data) => {
+    if (localStorage.getItem("roomId")) {
+      socket.emit("vao-phong", roomId);
+    }
+    socket.on("vao-phong1", (data) => {
       console.log(data);
-      if (data.message.role === "admin") {
-        localStorage.removeItem("roomId");
-        localStorage.setItem("roomId", data.roomId);
-        setReceiveMessage(data.room);
-        setActive(true);
-      }
-    });
-    socket.on("removeRoom", (data) => {
-      if (data.remove === "remove-room") {
-        localStorage.removeItem("roomId");
-        setActive(false);
+      if (data.find((mov) => mov.roomId === roomId)) {
+        setReceiveMessage(data.find((mov) => mov.roomId === roomId).messages);
       }
     });
   }, [socket]);
+  // tìm hết lại những message đã chat
 
-  //hàm sắp xếp lại tin nhắn theo trình tự thời gian mới nhất
-  const sortedMessages = receiveMessage
-    ? receiveMessage.messages.sort(
-        (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
-      )
-    : [];
+  console.log(receiveMessage);
+
   function generateNewRoomId() {
-    return (
-      Math.random().toString(36).substring(2, 15) +
-      Math.random().toString(36).substring(2, 15)
-    );
+    return (Math.random() * 1000000).toFixed(0).toString();
   }
 
   const sendMessage = () => {
     if (!localStorage.getItem("roomId")) {
-      const newRoomId = generateNewRoomId(); // Hàm tạo roomId mới
-      localStorage.setItem("roomId", newRoomId);
-      socket.emit("newRoomId", { newRoomId, user: currentUser });
+      console.log("click2");
+      if (message === "/end") {
+        alert("bạn chưa có phòng nào để kết thúc");
+      } else {
+        // tạo phòng mới
+        const newRoomId = generateNewRoomId(); // Hàm tạo roomId mới
+        setRoomId(newRoomId);
+        localStorage.setItem("roomId", newRoomId);
+        socket.emit("newRoomId", { room: newRoomId, ...dataSocket });
+      }
     }
-    socket.emit("clientSendMessage", dataSocket);
+    if (message === "/end") {
+      socket.emit("end-room", {
+        roomId: roomId,
+      });
+      setMessage("");
+      localStorage.setItem("roomId", "");
+      setRoomId("");
+      setReceiveMessage([]);
+      alert("đã kết thúc cuộc trò chuyện");
+      setActive(false);
+      return;
+    } else {
+      // gửi tin nhắn lên server để gửi cho client
+      socket.emit("send-admin", dataSocket);
+
+      setMessage("");
+    }
+    // socket.emit("create-room", dataSocket);
     setMessage("");
   };
+  console.log(receiveMessage);
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+  // nhận dữ liệu khi clien tạo phòng và lưu tin nhắn đã gửi
+  socket.on("c-tao-phong", (data) => {
+    console.log(data);
+    if (data.find((mov) => mov.roomId === roomId)) {
+      setReceiveMessage(data.find((mov) => mov.roomId === roomId).messages);
+    }
+  });
+  console.log(roomId);
+  socket.on(roomId, (data) => {
+    console.log(data);
+    setReceiveMessage(data.room.messages);
+  });
+  console.log(receiveMessage);
+  useEffect(() => {
+    // Tự động cuộn xuống dưới cùng của hộp tin nhắn khi có tin nhắn mới
+    chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+  }, [receiveMessage]);
+  //hàm sắp xếp lại tin nhắn theo trình tự thời gian mới nhất
+  const sortedMessages = receiveMessage
+    ? receiveMessage.sort(
+        (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+      )
+    : [];
+  console.log(sortedMessages);
   const messageChangeHandler = (e) => {
     const messageValue = e.target.value;
 
@@ -72,7 +117,11 @@ function PopupChat() {
           <button>Let's chat app</button>
         </div>
         {/* demo chat */}
-        <div className={classes["chat-messages"]} id="chatMessages">
+        <div
+          className={classes["chat-messages"]}
+          ref={chatMessagesRef}
+          id="chatMessages"
+        >
           {sortedMessages.length > 0 &&
             sortedMessages.map((message) => {
               // Kiểm tra nếu tin nhắn không có nội dung, bỏ qua việc render
@@ -111,6 +160,7 @@ function PopupChat() {
             placeholder="Type a message..."
             value={message}
             onChange={messageChangeHandler}
+            onKeyDown={handleKeyPress}
           />
           <button>
             {/* tệp đính kèm */}
