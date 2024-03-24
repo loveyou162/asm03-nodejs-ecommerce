@@ -3,10 +3,14 @@ import classes from "./CheckoutTotal.module.css";
 import { useRouteLoaderData } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+const accessToken = localStorage.getItem("accessToken");
 const CheckoutTotal = () => {
   const [productItem, setProductItem] = useState([]);
   const optionAxios = {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
     withCredentials: true,
   };
   useEffect(() => {

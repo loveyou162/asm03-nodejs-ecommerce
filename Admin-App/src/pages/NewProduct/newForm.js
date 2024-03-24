@@ -8,6 +8,7 @@ import classes from "./newForm.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 const NewForm = () => {
+  const accessToken = localStorage.getItem("accessToken");
   const [formInput, setFormInput] = useState({
     name: "",
     price: "",
@@ -27,7 +28,10 @@ const NewForm = () => {
     !isNew &&
       axios
         .get(`http://localhost:5000/admin/update-product?prodId=${productId}`, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
           withCredentials: true,
         })
         .then((response) => {
@@ -69,6 +73,7 @@ const NewForm = () => {
       .post("http://localhost:5000/admin/update-product", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
         },
         withCredentials: true,
       })
@@ -100,6 +105,7 @@ const NewForm = () => {
       .post("http://localhost:5000/admin/new-product", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
         },
         withCredentials: true,
       })

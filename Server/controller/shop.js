@@ -31,7 +31,6 @@ const formatPrice = (price) => {
 exports.getAllProducts = async (req, res, next) => {
   Product.find()
     .then((result) => {
-      // console.log(result);
       return res.json(result);
     })
     .catch((err) => {
@@ -100,7 +99,6 @@ exports.postDecrementCart = (req, res, next) => {
       const productId = user.cart.items.find((product) => {
         return product.productId.toString() === prodId.toString();
       });
-      // console.log(productId);
       res.json({ quantity: productId });
     })
     .catch((err) => {
@@ -120,7 +118,6 @@ exports.postDeleteCartProduct = (req, res, next) => {
       const productId = user.cart.items.find((product) => {
         return product.productId.toString() === prodId.toString();
       });
-      // console.log(productId);
       res.json({ quantity: productId });
     })
     .catch((err) => {
@@ -199,7 +196,7 @@ exports.postOrder = async (req, res, next) => {
       )
       .join("");
 
-    // Place order, send email notification (if implemented), and clear cart
+    // Đặt hàng, gửi email thông báo (nếu được triển khai) và xóa giỏ hàng
     const savedOrder = await order.save();
     const subject = "Order Succeeded!";
     const html = `
@@ -235,12 +232,12 @@ exports.postOrder = async (req, res, next) => {
   }
 };
 
-// Assuming you have a separate updateProduct function for modifying product counts
+// Giả sử bạn có một hàm updateProduct riêng để sửa đổi số lượng sản phẩm
 async function updateProduct(productId, quantity) {
   const product = await Product.findByIdAndUpdate(productId, {
     $inc: { count: -quantity },
   });
-  // Handle potential errors during product update
+  /// Xử lý các lỗi tiềm ẩn trong quá trình cập nhật sản phẩm
   if (!product) {
     throw new Error("Product not found!");
   }

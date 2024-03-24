@@ -6,6 +6,8 @@ const authController = require("../controller/auth");
 const User = require("../models/user");
 const adminController = require("../controller/admin");
 const { body } = require("express-validator");
+const jwt = require("jsonwebtoken");
+
 router.post(
   "/search-product",
   [checkAuth.checkAdminAuth, checkTypeUser.checkAdmin],
@@ -106,6 +108,6 @@ router.post(
   authController.postLogin
 );
 
-router.get("/logout", authController.getLogouts);
-
+router.post("/logout", authController.postLogouts);
+router.post("/refreshToken", authController.postRefreshToken);
 module.exports = router;

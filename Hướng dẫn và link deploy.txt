@@ -4,3 +4,4 @@ https://client-nodejs-03-41bd8.web.app/
 
 Do 3 port nằm ở 3 nơi khác nhau nên khi deploy không share được đầy đủ session nên có một vài tính năng không dùng được trên host và sẽ dùng bình thường khi sử dụng localhost nằm trong file code.
 	-Mong khảo thí trâm trước ạ!
+-Khi nhắn tin lần đầu load vào trang nhắn mấy tin mà không được hãy chat /end để xóa room(tin nhắn đầu tiên sẽ bị miss vì để set room mới từ tin nhắn thứ 2 sẽ hoạt động bình thường)

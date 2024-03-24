@@ -3,8 +3,8 @@ const port = 5000;
 const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
-const session = require("express-session");
-const MongoDBStore = require("connect-mongodb-session")(session);
+// const session = require("express-session");
+// const MongoDBStore = require("connect-mongodb-session")(session);
 const helmet = require("helmet");
 const compression = require("compression");
 const cors = require("cors");
@@ -16,17 +16,12 @@ const server = http.createServer(app);
 const initSocketIO = require("./controller/socket");
 const User = require("./models/user");
 initSocketIO(server);
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 
+dotenv.config();
 const MONGODB_URI = `mongodb+srv://caoboi520:Aw8umOX1tKDxMVsg@cluster0.fdehoqk.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0`;
 
-const clientStore = new MongoDBStore({
-  uri: MONGODB_URI,
-  collection: "client-sessions",
-});
-const adminStore = new MongoDBStore({
-  uri: MONGODB_URI,
-  collection: "admin-sessions",
-});
 const csrfProtection = csrf();
 
 const shopRoute = require("./router/shop");
@@ -45,28 +40,28 @@ app.use(
     method: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
   })
 );
-//tạo session cho client
-app.use(
-  "/shop",
-  session({
-    secret: "client secret",
-    resave: false,
-    saveUninitialized: false,
-    store: clientStore,
-    cookie: { secure: false, maxAge: 3000 * 60 * 60 },
-  })
-);
-//tạo session cho admin
-app.use(
-  "/admin",
-  session({
-    secret: "admin secret",
-    resave: false,
-    saveUninitialized: false,
-    store: adminStore,
-    cookie: { secure: false, maxAge: 3000 * 60 * 60 },
-  })
-);
+// //tạo session cho client
+// app.use(
+//   "/shop",
+//   session({
+//     secret: "client secret",
+//     resave: false,
+//     saveUninitialized: false,
+//     store: clientStore,
+//     cookie: { secure: false, maxAge: 3000 * 60 * 60 },
+//   })
+// );
+// //tạo session cho admin
+// app.use(
+//   "/admin",
+//   session({
+//     secret: "admin secret",
+//     resave: false,
+//     saveUninitialized: false,
+//     store: adminStore,
+//     cookie: { secure: false, maxAge: 3000 * 60 * 60 },
+//   })
+// );
 // app.use(helmet());
 // Cấu hình chính sách bảo mật nội dung (CSP) cho ứng dụng
 app.use(
@@ -117,26 +112,34 @@ app.get("/admin/some-route", csrfProtection, (req, res) => {
 //trong form ở client thêm input hidden có value là csrfToken
 
 app.use((req, res, next) => {
-  console.log(65, req.session.id);
-  if (!req.session.user) {
-    console.log("no user");
-    return next();
-  }
+  const authHeader = req.headers.authorization;
 
-  User.findOne({ _id: req.session.user._id })
-    .then((user) => {
-      console.log("app-76", user);
-      if (!user) {
+  if (authHeader) {
+    const token = authHeader.split(" ")[1]; // Tách token từ phần "Bearer <token>"
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) {
+        console.error("Invalid token:", err.message);
         return next();
       }
-      req.user = user;
 
-      next();
-    })
-    .catch((err) => {
-      next(new Error(err));
+      User.findById(user.user._id)
+        .then((foundUser) => {
+          if (!foundUser) {
+            console.log("User not found.");
+            return next();
+          }
+          console.log(140, foundUser);
+          req.user = foundUser;
+          next();
+        })
+        .catch((error) => {
+          console.error("Error finding user:", error);
+          next(error);
+        });
     });
-  console.log("app-69", req.session.user._id);
+  } else {
+    next();
+  }
 });
 
 app.use((error, req, res, next) => {
@@ -146,13 +149,6 @@ app.use((error, req, res, next) => {
 // app.use("/user", authRoute);
 app.use("/shop", shopRoute);
 app.use("/admin", adminRoute);
-
-app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.session.isLoggedIn;
-  console.log("app-46 ", res.locals.isAuthenticated);
-  // res.locals.csrfToken = req.csrfToken();
-  next();
-});
 
 mongoose
   .connect(MONGODB_URI)

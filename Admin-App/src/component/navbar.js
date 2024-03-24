@@ -8,10 +8,16 @@ const Navbar = () => {
   const logoutHandler = () => {
     try {
       axios
-        .get("http://localhost:5000/admin/logout", {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        })
+        .post(
+          "http://localhost:5000/admin/logout",
+          {
+            token: accessToken,
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        )
         .then((response) => {
           console.log(response);
         })
@@ -21,6 +27,8 @@ const Navbar = () => {
     } catch (err) {
       console.log(err);
     }
+    localStorage.setItem("accessToken", "");
+    localStorage.setItem("refreshToken", "");
     navigate("/admin/login");
   };
   return (

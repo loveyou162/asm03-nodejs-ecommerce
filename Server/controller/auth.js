@@ -1,7 +1,10 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 const nodemailer = require("nodemailer");
-
+dotenv.config();
+let refreshTokens = [];
 const { validationResult } = require("express-validator");
 const sendEmailService = async (email, subject, html) => {
   const transporter = nodemailer.createTransport({
@@ -72,34 +75,45 @@ exports.postLogin = async (req, res, next) => {
       return res.json({ errMessage: error.array(), isLogin: false });
     }
     const doMatch = await bcrypt.compare(password, user.password);
+    const client = {
+      clientLoggedIn: true,
+      user: user,
+      role: user.role,
+    };
+    const admin = {
+      adminLoggedIn: true,
+      user: user,
+      role: user.role,
+    };
+    const counselors = {
+      counselorsLoggedIn: true,
+      user: user,
+      role: user.role,
+    };
     if (doMatch) {
-      console.log(doMatch);
+      const createJWT = (data) => {
+        const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
+          expiresIn: "3600s",
+        });
+        const refreshToken = jwt.sign(data, process.env.REFRESH_TOKEN_SECRET);
+        refreshTokens.push(refreshToken);
+        res.json({
+          accessToken,
+          refreshToken,
+          isLogin: true,
+          user: user,
+          role: user.role,
+        });
+      };
       if (user.role === "client") {
-        req.session.clientLoggedIn = true;
-        req.session.user = user;
-        req.session.role = user.role;
+        createJWT(client);
       } else if (user.role === "admin") {
-        req.session.adminLoggedIn = true;
-        req.session.user = user;
-        req.session.role = user.role;
+        createJWT(admin);
       } else {
-        req.session.counselorsLoggedIn = true;
-        req.session.user = user;
-        req.session.role = user.role;
+        createJWT(counselors);
       }
-      req.session.save((err) => {
-        if (err) {
-          console.log(err);
-          throw new Error(err);
-        }
-      });
-      console.log("Bạn đã đăng nhập thành công");
 
-      res.json({
-        user: user,
-        isLogin: true,
-        role: user.role,
-      });
+      console.log("Bạn đã đăng nhập thành công");
     } else {
       return res.json({
         errMessage: [{ msg: "Invalid email or password." }],
@@ -110,9 +124,23 @@ exports.postLogin = async (req, res, next) => {
     return next(error);
   }
 };
-exports.getLogouts = (req, res, next) => {
-  req.session.destroy((err) => {
-    console.log(err);
-    res.send("logout");
+
+exports.postLogouts = (req, res, next) => {
+  const refreshToken = req.body.token;
+  refreshTokens = refreshTokens.filter((refToken) => refToken !== refreshToken);
+  res.sendStatus(200);
+};
+exports.postRefreshToken = (req, res, next) => {
+  const refreshToken = req.body.token;
+  if (!refreshToken) res.sendStatus(401);
+  if (!refreshTokens.includes(refreshToken)) res.sendStatus(403);
+
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
+    console.log(err, data);
+    if (err) res.sendStatus(403);
+    const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "3600s",
+    });
+    res.json({ accessToken });
   });
 };

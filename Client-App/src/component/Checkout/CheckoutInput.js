@@ -2,6 +2,7 @@ import { useState } from "react";
 import classes from "./CheckoutInput.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
+const accessToken = localStorage.getItem("accessToken");
 const CheckoutInput = () => {
   const navigate = useNavigate();
   const [formCheckOut, setFormCheckOut] = useState({
@@ -29,7 +30,10 @@ const CheckoutInput = () => {
           totalPrice: parseInt(totalPrice),
         },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
           withCredentials: true,
         }
       )

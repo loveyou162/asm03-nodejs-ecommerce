@@ -31,12 +31,15 @@ function AuthForm() {
           }
         )
         .then((response) => {
+          console.log(response.data);
           // nếu có ísLogin set localstorage
           if (response.data.isLogin) {
             localStorage.setItem(
               "currentName",
               JSON.stringify(response.data.user)
             );
+            localStorage.setItem("accessToken", response.data.accessToken);
+            localStorage.setItem("refreshToken", response.data.refreshToken);
             localStorage.setItem("currenUser", true);
             navigate("/");
           } else {

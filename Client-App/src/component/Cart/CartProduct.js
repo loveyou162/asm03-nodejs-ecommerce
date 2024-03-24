@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { cartActions } from "../../store.js/cartSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
+const accessToken = localStorage.getItem("accessToken");
 const CartProduct = () => {
   const navigate = useNavigate();
   const previousPage = () => {
@@ -14,7 +15,10 @@ const CartProduct = () => {
   const [cartItemData, setCartItemData] = useState([]);
   //hàm option của http
   const optionAxios = {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
     withCredentials: true,
   };
   const dispatch = useDispatch();

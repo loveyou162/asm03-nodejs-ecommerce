@@ -18,7 +18,6 @@ exports.getProductsAdmin = async (req, res, next) => {
 };
 exports.postSearchProduct = (req, res, next) => {
   const query = req.body.query;
-  console.log(query);
   const regexQuery = new RegExp(query, "i");
   Product.find({ name: regexQuery })
     .then((result) => {
@@ -76,7 +75,6 @@ exports.postNewProduct = (req, res, next) => {
 //lấy dữ liệu mặc định cho form
 exports.getUpdateProduct = (req, res, next) => {
   const prodId = req.query.prodId;
-  console.log(80, prodId);
   Product.findById(prodId)
     .then((product) => {
       res.json(product);
@@ -164,7 +162,6 @@ exports.getMessage = (req, res, next) => {
   room
     .find()
     .then((room) => {
-      console.log(167, room);
       res.json(room);
     })
     .catch((err) => {
@@ -175,13 +172,11 @@ exports.getMessage = (req, res, next) => {
 };
 exports.getDetailMessage = (req, res, next) => {
   const roomId = req.query.roomId;
-  console.log(153, roomId);
   room
     .findOne({ roomId: roomId })
     .populate("messages.messageId")
     .then((room) => {
       room.populate("userId").then((room) => {
-        console.log(184, room);
         res.json(room);
       });
     })

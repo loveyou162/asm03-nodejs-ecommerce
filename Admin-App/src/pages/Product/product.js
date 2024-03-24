@@ -2,6 +2,7 @@ import { Form, Link, redirect, useLoaderData } from "react-router-dom";
 import classes from "./product.module.css";
 import axios from "axios";
 import { useState } from "react";
+
 const ProductsPage = () => {
   const allProducts = useLoaderData();
   console.log(allProducts);
@@ -39,7 +40,10 @@ const ProductsPage = () => {
         "http://localhost:5000/admin/search-product",
         { query: query },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
           withCredentials: true,
         }
       )
@@ -126,10 +130,14 @@ const ProductsPage = () => {
 export default ProductsPage;
 export async function loader() {
   try {
+    const accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(
       "http://localhost:5000/admin/all-product",
       {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
         withCredentials: true,
       }
     );
@@ -143,12 +151,16 @@ export async function action({ request }) {
   const prodId = data.get("prodId");
   console.log(prodId);
   try {
+    const accessToken = localStorage.getItem("accessToken");
     const isConfirmed = window.confirm("Bạn có chắc muốn xóa không?");
     if (isConfirmed) {
       const response = await axios.delete(
         `http://localhost:5000/admin/delete-product?prodId=${prodId}`,
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
           withCredentials: true,
         }
       );

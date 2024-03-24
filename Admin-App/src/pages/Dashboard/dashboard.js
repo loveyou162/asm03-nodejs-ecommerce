@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import classes from "./dashboard.module.css";
 import axios from "axios";
+
 const Dashboard = () => {
   const dataDash = useLoaderData();
   console.log(dataDash.listOrder);
@@ -76,8 +77,12 @@ const Dashboard = () => {
 export default Dashboard;
 export async function loader() {
   try {
+    const accessToken = localStorage.getItem("accessToken");
     const response = await axios.get("http://localhost:5000/admin/dashboard", {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
       withCredentials: true,
     });
     return response.data;

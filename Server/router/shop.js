@@ -6,6 +6,10 @@ const checkTypeUser = require("../middleware/isTypeUser");
 const authController = require("../controller/auth");
 const { body } = require("express-validator");
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
+
 router.get(
   "/all-product",
   [checkAuth.checkClientAuth, checkTypeUser.checkClient],
@@ -109,6 +113,6 @@ router.post(
   authController.postLogin
 );
 
-router.get("/logout", authController.getLogouts);
-
+router.post("/logout", authController.postLogouts);
+router.post("/refreshToken", authController.postRefreshToken);
 module.exports = router;

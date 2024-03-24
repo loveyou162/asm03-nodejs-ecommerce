@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 // import { Cookies } from "react-cookie";
 import axios from "axios";
+const accessToken = localStorage.getItem("accessToken");
 function Navbar() {
   const isLogout = useSelector((state) => state.auth.islogin);
   const [isLogouted, setIsLogouted] = useState(null);
@@ -31,10 +32,16 @@ function Navbar() {
     localStorage.setItem("roomId", "");
     try {
       axios
-        .get("http://localhost:5000/shop/logout", {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        })
+        .post(
+          "http://localhost:5000/shop/logout",
+          {
+            token: accessToken,
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        )
         .then((response) => {
           console.log(response);
         })
@@ -44,6 +51,8 @@ function Navbar() {
     } catch (err) {
       console.log(err);
     }
+    localStorage.setItem("accessToken", "");
+    localStorage.setItem("refreshToken", "");
     navigate("/login");
   };
   return (

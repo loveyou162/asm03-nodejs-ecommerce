@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 function Products() {
   const dispatch = useDispatch();
   const data = useRouteLoaderData("root");
+  console.log(data);
   let priceArr = [];
   //lặp qua mảng data để lấy dữ liệu price và chuyển vào mảng priceArr
   data.forEach(function (obj) {

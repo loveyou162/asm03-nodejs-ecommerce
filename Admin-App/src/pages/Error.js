@@ -18,13 +18,18 @@ function ErrorPage() {
     title = "401  Unauthorized!";
     message = "Tài khoản của bạn không thể sử dụng tính năng này!";
   }
-
+  const deleteToken = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+  };
   return (
     <div className="Error-Page">
       <h1>{title}</h1>
       <p>{message}</p>
       <div className="group-btn-err">
-        <Link to="/admin/login">Login</Link>
+        <Link to="/admin/login" onClick={deleteToken}>
+          Login
+        </Link>
         <Link to="/admin/chat">Chat</Link>
       </div>
     </div>

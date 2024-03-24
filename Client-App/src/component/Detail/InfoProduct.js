@@ -4,7 +4,7 @@ import RelatedProduct from "./RelatedProduct";
 import { useParams, useRouteLoaderData } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+const accessToken = localStorage.getItem("accessToken");
 function InfoProduct() {
   // Sử dụng hook useParams để lấy các tham số từ URL
   const params = useParams();
@@ -20,7 +20,10 @@ function InfoProduct() {
         const response = await axios.get(
           `http://localhost:5000/shop/detail-product?prodId=${params.productId}`,
           {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
             withCredentials: true,
           }
         );
@@ -42,7 +45,10 @@ function InfoProduct() {
         "http://localhost:5000/shop/add-cart",
         { productId: params.productId },
         {
-          headers: { "Content-Types": "application/json" },
+          headers: {
+            "Content-Types": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
           withCredentials: true,
         }
       );

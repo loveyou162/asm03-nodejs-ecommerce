@@ -36,6 +36,8 @@ function LoginPage() {
               "currentName",
               JSON.stringify(response.data.user)
             );
+            localStorage.setItem("accessToken", response.data.accessToken);
+            localStorage.setItem("refreshToken", response.data.refreshToken);
             navigate("/");
           } else {
             console.log(response.data.errMessage[0].msg);

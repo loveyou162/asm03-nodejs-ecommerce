@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+const accessToken = localStorage.getItem("accessToken");
 // function updateTotalAmount(state) {
 //   state.totalAmount = state.items.reduce(
 //     (total, item) => total + item.quantity * item.price,
@@ -37,7 +38,10 @@ const cartSlice = createSlice({
           `http://localhost:5000/shop/add-cart`,
           { productId: itemId },
           {
-            headers: { "Content-type": "application/json" },
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
             withCredentials: true,
           }
         )
@@ -58,7 +62,10 @@ const cartSlice = createSlice({
           "http://localhost:5000/shop/decrement-cart",
           { productId: itemId },
           {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
             withCredentials: true,
           }
         )
@@ -78,7 +85,10 @@ const cartSlice = createSlice({
           "http://localhost:5000/shop/delete-cart",
           { productId: itemId },
           {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
             withCredentials: true,
           }
         )

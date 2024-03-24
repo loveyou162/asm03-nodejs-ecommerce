@@ -33,7 +33,7 @@
 
 .box-chat {
   width: 350px;
-  height: 450px;
+  /* height: 450px; */
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
@@ -45,6 +45,7 @@
   transform: scale(0);
   transition: transform 0.3s ease-in-out;
   transform-origin: 100% 100%;
+  display: none;
 }
 
 @keyframes shake {
@@ -69,6 +70,7 @@
   visibility: visible;
   transform: scale(1);
   animation: shake 0.5s ease-in-out;
+  display: block;
 }
 
 .boxChat-header {

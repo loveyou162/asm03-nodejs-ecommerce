@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 const socket = io("http://localhost:5000");
+const accessToken = localStorage.getItem("accessToken");
 const ChatPage = () => {
   const [roomId, setRoomId] = useState("");
   const [message, setMessage] = useState("");
@@ -160,7 +161,10 @@ export default ChatPage;
 export async function loader() {
   try {
     const response = await axios.get("http://localhost:5000/admin/all-room", {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
       withCredentials: true,
     });
     return response.data;

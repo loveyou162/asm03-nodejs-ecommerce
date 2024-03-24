@@ -28,7 +28,12 @@ function PopupChat() {
     socket.on("vao-phong1", (data) => {
       console.log(data);
       if (data.find((mov) => mov.roomId === roomId)) {
-        setReceiveMessage(data.find((mov) => mov.roomId === roomId).messages);
+        const room = data.find((mov) => mov.roomId === roomId);
+        if (room && room.messages) {
+          setReceiveMessage(room.messages);
+        } else {
+          setReceiveMessage([]);
+        }
       }
     });
   }, [socket]);
@@ -84,7 +89,12 @@ function PopupChat() {
   socket.on("c-tao-phong", (data) => {
     console.log(data);
     if (data.find((mov) => mov.roomId === roomId)) {
-      setReceiveMessage(data.find((mov) => mov.roomId === roomId).messages);
+      const room = data.find((mov) => mov.roomId === roomId);
+      if (room && room.messages) {
+        setReceiveMessage(room.messages);
+      } else {
+        setReceiveMessage([]);
+      }
     }
   });
   console.log(roomId);
@@ -103,6 +113,7 @@ function PopupChat() {
         (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
       )
     : [];
+
   console.log(sortedMessages);
   const messageChangeHandler = (e) => {
     const messageValue = e.target.value;

@@ -1,6 +1,7 @@
 import BannerOrder from "../component/OrderDetail/BannerInfo";
 import OrderListDetail from "../component/OrderDetail/Order-detail";
 import axios from "axios";
+const accessToken = localStorage.getItem("accessToken");
 const OrderDetail = () => {
   return (
     <div>
@@ -19,7 +20,10 @@ export async function loader({ params }) {
       OrderId: id,
     },
     {
-      headers: { "Content-Types": "application/json" },
+      headers: {
+        "Content-Types": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
       withCredentials: true,
     }
   );

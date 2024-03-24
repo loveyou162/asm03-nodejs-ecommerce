@@ -28,7 +28,6 @@ const initSocketIO = (server) => {
       for (const room of rooms) {
         Room.deleteMany({ userId: data.user._id })
           .then((room) => {
-            console.log("33", room);
             console.log("đã xóa các phòng cũ của user đó");
           })
           .catch((err) => {
@@ -102,7 +101,6 @@ const initSocketIO = (server) => {
         let room = await Room.findOne({ roomId: data.roomId }).populate(
           "messages.messageId"
         );
-        console.log(40, room);
         room.messages.push({ messageId: newMessage._id });
 
         await room.save();
