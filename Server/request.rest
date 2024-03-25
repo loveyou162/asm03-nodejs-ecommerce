@@ -1,4 +1,4 @@
-POST http://localhost:5000/user/signup
+POST https://asm03-nodejs-server.onrender.com/user/signup
 Content-Type: application/json
 
 
@@ -11,9 +11,9 @@ Content-Type: application/json
 }
 
 ###############
-GET http://localhost:5000/admin/some-route
+GET https://asm03-nodejs-server.onrender.com/admin/some-route
 ################################
-POST http://localhost:5000/shop/login
+POST https://asm03-nodejs-server.onrender.com/shop/login
 Content-Type: application/json
 
 
@@ -23,18 +23,18 @@ Content-Type: application/json
     "_csrf": "6FuyUsxg-Pf2d4pivQQS5geCYyCWPVHgmHyo"
 }
 ################################################################
-GET http://localhost:5000/shop/logout
+GET https://asm03-nodejs-server.onrender.com/shop/logout
 
 
 ########
-GET  http://localhost:5000/shop/all-product
+GET  https://asm03-nodejs-server.onrender.com/shop/all-product
 ##########
-GET  http://localhost:5000/shop/cart
+GET  https://asm03-nodejs-server.onrender.com/shop/cart
 
 ########
-GET  http://localhost:5000/shop/order
+GET  https://asm03-nodejs-server.onrender.com/shop/order
 ###########
-POST  http://localhost:5000/shop/order-detail
+POST  https://asm03-nodejs-server.onrender.com/shop/order-detail
 Content-Type: application/json
 
 
@@ -43,4 +43,4 @@ Content-Type: application/json
 }
 
 #############
-GET  http://localhost:5000/admin/all-room
+GET  https://asm03-nodejs-server.onrender.com/admin/all-room

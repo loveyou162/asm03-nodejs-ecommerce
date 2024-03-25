@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const ProductsPage = () => {
+  const accessToken = localStorage.getItem("accessToken");
   const allProducts = useLoaderData();
   console.log(allProducts);
 
@@ -37,7 +38,7 @@ const ProductsPage = () => {
     // Thực hiện tìm kiếm dựa trên query
     return axios
       .post(
-        "http://localhost:5000/admin/search-product",
+        "https://asm03-nodejs-server.onrender.com/admin/search-product",
         { query: query },
         {
           headers: {
@@ -132,7 +133,7 @@ export async function loader() {
   try {
     const accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(
-      "http://localhost:5000/admin/all-product",
+      "https://asm03-nodejs-server.onrender.com/admin/all-product",
       {
         headers: {
           "Content-Type": "application/json",
@@ -155,7 +156,7 @@ export async function action({ request }) {
     const isConfirmed = window.confirm("Bạn có chắc muốn xóa không?");
     if (isConfirmed) {
       const response = await axios.delete(
-        `http://localhost:5000/admin/delete-product?prodId=${prodId}`,
+        `https://asm03-nodejs-server.onrender.com/admin/delete-product?prodId=${prodId}`,
         {
           headers: {
             "Content-Type": "application/json",

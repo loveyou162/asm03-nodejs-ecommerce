@@ -3,9 +3,9 @@ const User = require("../models/user");
 const Order = require("../models/order");
 const room = require("../models/room");
 const fileHelper = require("../util/file");
-//hàm xóa "http://localhost:5000/"
+//hàm xóa "https://asm03-nodejs-server.onrender.com/"
 const filePath = (path) => {
-  return path.replace("http://localhost:5000/", "");
+  return path.replace("https://asm03-nodejs-server.onrender.com/", "");
 };
 exports.getProductsAdmin = async (req, res, next) => {
   Product.find()
@@ -35,7 +35,8 @@ exports.getDashboard = async (req, res, next) => {
     const quantityUser = await User.find();
     //lấy trung bình thu nhập
     const arrPrice = await Order.find().distinct("user.totalPrice");
-    const averagePrice = arrPrice.reduce((a, b) => a + b, 0) / arrPrice.length;
+    //tính tổng giá tiền các order
+    const averagePrice = arrPrice.reduce((a, b) => a + b, 0);
     const order = await Order.find();
     const allData = {
       quantityUser: quantityUser.length,
@@ -59,15 +60,16 @@ exports.postNewProduct = (req, res, next) => {
     price: price,
     category: category,
     count: count,
-    img1: `http://localhost:5000/${images[0].path}`,
-    img2: `http://localhost:5000/${images[1].path}`,
-    img3: `http://localhost:5000/${images[2].path}`,
-    img4: `http://localhost:5000/${images[3].path}`,
+    img1: `https://asm03-nodejs-server.onrender.com/${images[0].path}`,
+    img2: `https://asm03-nodejs-server.onrender.com/${images[1].path}`,
+    img3: `https://asm03-nodejs-server.onrender.com/${images[2].path}`,
+    img4: `https://asm03-nodejs-server.onrender.com/${images[3].path}`,
     short_desc: shortDesc,
     long_desc: longDesc,
     userId: req.user,
   });
   product.save().then((result) => {
+    res.json({ message: "Đã thêm sản phẩm thành công" });
     console.log("Created Product!");
   });
 };
@@ -95,32 +97,34 @@ exports.postUpdateProduct = (req, res, next) => {
   Product.findOne({ _id: productId })
     .then((product) => {
       console.log(product);
+      //nếu các trường không được điền đủ thì sẽ thay thế bằng trường hiện tại để tránh lỗi
       product.name = name ? name : product.name;
       product.price = price ? price : product.price;
       product.category = category ? category : product.category;
       product.count = count ? count : product.count;
+      //nếu có image[0] thì xóa ảnh cũ và thêm ảnh mới
       if (images[0]) {
         fileHelper.deleteFile(filePath(product.img1));
         product.img1 = images[0]
-          ? `http://localhost:5000/${images[0].path}`
+          ? `https://asm03-nodejs-server.onrender.com/${images[0].path}`
           : product.img1;
       }
       if (images[1]) {
         fileHelper.deleteFile(filePath(product.img2));
         product.img2 = images[1]
-          ? `http://localhost:5000/${images[1].path}`
+          ? `https://asm03-nodejs-server.onrender.com/${images[1].path}`
           : product.img2;
       }
       if (images[2]) {
         fileHelper.deleteFile(filePath(product.img3));
         product.img3 = images[2]
-          ? `http://localhost:5000/${images[2].path}`
+          ? `https://asm03-nodejs-server.onrender.com/${images[2].path}`
           : product.img3;
       }
       if (images[3]) {
         fileHelper.deleteFile(filePath(product.img4));
         product.img4 = images[3]
-          ? `http://localhost:5000/${images[3].path}`
+          ? `https://asm03-nodejs-server.onrender.com/${images[3].path}`
           : product.img4;
       }
       product.short_desc = shortDesc ? shortDesc : product.short_desc;
@@ -142,6 +146,7 @@ exports.deleteProduct = (req, res, next) => {
   console.log("delete:", prodId);
   Product.findById(prodId)
     .then((product) => {
+      //xóa hết ảnh cũ trong /images khi xóa sản phẩm
       fileHelper.deleteFile(filePath(product.img1));
       fileHelper.deleteFile(filePath(product.img2));
       fileHelper.deleteFile(filePath(product.img3));
@@ -158,6 +163,8 @@ exports.deleteProduct = (req, res, next) => {
       return next(error);
     });
 };
+
+//hàm lấy all Room
 exports.getMessage = (req, res, next) => {
   room
     .find()

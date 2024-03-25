@@ -27,21 +27,16 @@ function LoginPage() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const csrfReq = await fetch("http://localhost:5000/admin/some-route");
-      if (!csrfReq.ok) {
-        throw new Error("Failed to fetch CSRF token");
-      }
-      const csrf = await csrfReq.json();
-      const csrfToken = csrf.csrfToken;
-
-      const response = await fetch("http://localhost:5000/admin/signup", {
-        method: "POST",
-        headers: {
-          "X-CSRF-TOKEN": csrfToken,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://asm03-nodejs-server.onrender.com/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to sign up");

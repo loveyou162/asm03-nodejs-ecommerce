@@ -2,7 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./AuthForm.module.css";
 import { useState } from "react";
 import axios from "axios";
+
 function AuthForm() {
+  console.log(process.env);
   //dùng navigate để tạo chức năng điều hướng
   const navigate = useNavigate();
   const [formLoginData, setFormLogin] = useState({
@@ -23,7 +25,7 @@ function AuthForm() {
     try {
       axios
         .post(
-          "http://localhost:5000/shop/login",
+          `https://asm03-nodejs-server.onrender.com/auth/login`,
           formLoginData, // Truyền formData trực tiếp, không cần JSON.stringify
           {
             headers: { "Content-Type": "application/json" },

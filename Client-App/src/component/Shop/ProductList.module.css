@@ -87,15 +87,16 @@
   display: grid;
   grid-template-columns: 1fr;
   justify-items: end;
+  margin-top: 1.2rem;
 }
 
 .page-number {
   width: 5%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  position: relative;
-  right: 6%;
-  margin: 16px 0;
+  position: absolute;
+  right: 15%;
+  margin: 34px 0;
 }
 
 .page-number > p {

@@ -2,8 +2,9 @@ import { useState } from "react";
 import classes from "./CheckoutInput.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router";
-const accessToken = localStorage.getItem("accessToken");
+
 const CheckoutInput = () => {
+  const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
   const [formCheckOut, setFormCheckOut] = useState({
     fullname: 0,
@@ -24,7 +25,7 @@ const CheckoutInput = () => {
     e.preventDefault();
     axios
       .post(
-        "http://localhost:5000/shop/order",
+        `https://asm03-nodejs-server.onrender.com/shop/order`,
         {
           ...formCheckOut,
           totalPrice: parseInt(totalPrice),

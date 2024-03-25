@@ -2,6 +2,7 @@ import { useRouteLoaderData } from "react-router";
 import classes from "./RelatedProduct.module.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 function RelatedProduct(props) {
   const data = useRouteLoaderData("root");
   const [product, setProduct] = useState([]);

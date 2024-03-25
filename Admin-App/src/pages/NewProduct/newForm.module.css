@@ -30,6 +30,7 @@
   height: 8rem;
 }
 .NewForm > form .group-input2 .input-item input,
+.NewForm > form .group-input2 .input-item select,
 .NewForm > form .group-input textarea,
 .NewForm > form .group-input input {
   margin: 6px 0 16px 0;

@@ -3,12 +3,10 @@ const port = 5000;
 const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
-// const session = require("express-session");
-// const MongoDBStore = require("connect-mongodb-session")(session);
+
 const helmet = require("helmet");
 const compression = require("compression");
 const cors = require("cors");
-const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const http = require("http");
@@ -21,9 +19,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 const MONGODB_URI = `mongodb+srv://caoboi520:Aw8umOX1tKDxMVsg@cluster0.fdehoqk.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0`;
-
-const csrfProtection = csrf();
-
+console.log(24, process.env.ACCESS_TOKEN_SECRET);
+const authRoute = require("./router/auth");
 const shopRoute = require("./router/shop");
 const adminRoute = require("./router/admin");
 
@@ -32,43 +29,22 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:3001",
-      "https://admin-nodejs-03-4a9f5.web.app",
-      "https://client-nodejs-03-41bd8.web.app",
-      "http://localhost:5000",
+      "https://admin-nodejs03-d94a9.web.app",
+      "https://client-nodejs03-a429d.web.app",
+      "https://asm03-nodejs-server.onrender.com",
     ],
     credentials: true,
     method: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
   })
 );
-// //tạo session cho client
-// app.use(
-//   "/shop",
-//   session({
-//     secret: "client secret",
-//     resave: false,
-//     saveUninitialized: false,
-//     store: clientStore,
-//     cookie: { secure: false, maxAge: 3000 * 60 * 60 },
-//   })
-// );
-// //tạo session cho admin
-// app.use(
-//   "/admin",
-//   session({
-//     secret: "admin secret",
-//     resave: false,
-//     saveUninitialized: false,
-//     store: adminStore,
-//     cookie: { secure: false, maxAge: 3000 * 60 * 60 },
-//   })
-// );
+
 // app.use(helmet());
 // Cấu hình chính sách bảo mật nội dung (CSP) cho ứng dụng
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
       // Cho phép hiển thị ảnh từ đường dẫn /images
-      "img-src": ["'self'", "http://localhost:5000/images"],
+      "img-src": ["'self'", "https://asm03-nodejs-server.onrender.com/images"],
     },
   })
 );
@@ -98,18 +74,12 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
-
+//cấu hình multer để nhận được tối đa 4 ảnh
 app.use(
-  multer({ storage: fileStorage, filter: fileFilter }).array("images", 5)
+  multer({ storage: fileStorage, filter: fileFilter }).array("images", 4)
 );
+// thiết lập đường dẫn cho file tĩnh /images
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.get("/shop/some-route", csrfProtection, (req, res) => {
-  res.json({ csrfToken: req.csrfToken() });
-});
-app.get("/admin/some-route", csrfProtection, (req, res) => {
-  res.json({ csrfToken: req.csrfToken() });
-});
-//trong form ở client thêm input hidden có value là csrfToken
 
 app.use((req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -146,7 +116,7 @@ app.use((error, req, res, next) => {
   res.status(500).json({ message: "error" });
 });
 
-// app.use("/user", authRoute);
+app.use("/auth", authRoute);
 app.use("/shop", shopRoute);
 app.use("/admin", adminRoute);
 

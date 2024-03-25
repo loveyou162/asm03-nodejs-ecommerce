@@ -4,21 +4,20 @@ import RelatedProduct from "./RelatedProduct";
 import { useParams, useRouteLoaderData } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
-const accessToken = localStorage.getItem("accessToken");
+
 function InfoProduct() {
   // Sử dụng hook useParams để lấy các tham số từ URL
   const params = useParams();
-  // const data = useRouteLoaderData("root");
-  // console.log(data);
   // State để lưu trữ thông tin sản phẩm được chọn
   const [productData, setProductData] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     const fetchDataDetail = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/shop/detail-product?prodId=${params.productId}`,
+          `https://asm03-nodejs-server.onrender.com/shop/detail-product?prodId=${params.productId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -38,11 +37,10 @@ function InfoProduct() {
     fetchDataDetail();
   }, [params.productId]);
   // Hàm xử lý khi nhấn nút "Add to cart"
-  // console.log(productData);
   const addToCartHandler = () => {
     if (productData.count > 0) {
       axios.post(
-        "http://localhost:5000/shop/add-cart",
+        `https://asm03-nodejs-server.onrender.com/shop/add-cart`,
         { productId: params.productId },
         {
           headers: {
@@ -75,6 +73,7 @@ function InfoProduct() {
   };
   const decrement = () => {
     if (quantity > 1) {
+      // Gọi action để giảm số lượng sản phẩm
       setQuantity(quantity - 1);
     }
   };

@@ -4,6 +4,7 @@ import { useRouteLoaderData } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 const accessToken = localStorage.getItem("accessToken");
+
 const CheckoutTotal = () => {
   const [productItem, setProductItem] = useState([]);
   const optionAxios = {
@@ -15,7 +16,7 @@ const CheckoutTotal = () => {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:5000/shop/cart", optionAxios)
+      .get(`https://asm03-nodejs-server.onrender.com/shop/cart`, optionAxios)
       .then((response) => {
         console.log(response.data);
         setProductItem(response.data);

@@ -8,10 +8,3 @@ function DetailPage() {
   );
 }
 export default DetailPage;
-// export async function loader() {
-//   try {
-//     const response = await axios;
-//   } catch (e) {
-//     throw new Error(e);
-//   }
-// }

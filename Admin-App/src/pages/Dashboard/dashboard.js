@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Dashboard = () => {
   const dataDash = useLoaderData();
-  console.log(dataDash.listOrder);
+  console.log(dataDash);
   const formatPrice = (price) => {
     let priceString = price.toString();
     // Sử dụng biểu thức chính quy để thêm dấu chấm ngăn cách
@@ -78,13 +78,16 @@ export default Dashboard;
 export async function loader() {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await axios.get("http://localhost:5000/admin/dashboard", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      withCredentials: true,
-    });
+    const response = await axios.get(
+      "https://asm03-nodejs-server.onrender.com/admin/dashboard",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        withCredentials: true,
+      }
+    );
     return response.data;
   } catch (error) {
     throw new Response(

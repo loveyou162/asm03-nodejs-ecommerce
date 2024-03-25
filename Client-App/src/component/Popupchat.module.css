@@ -33,14 +33,13 @@
 
 .box-chat {
   width: 350px;
-  /* height: 450px; */
+  height: 450px;
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 10px #c2c2c2;
   background-color: #fff;
-  display: grid;
-  grid-template-rows: 12% 76% 12%;
+
   border-radius: 15px;
   transform: scale(0);
   transition: transform 0.3s ease-in-out;
@@ -70,7 +69,9 @@
   visibility: visible;
   transform: scale(1);
   animation: shake 0.5s ease-in-out;
-  display: block;
+  display: grid;
+  grid-template-rows: 12% 76% 12%;
+  /* display: block; */
 }
 
 .boxChat-header {

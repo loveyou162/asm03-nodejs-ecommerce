@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
 dotenv.config();
+
 exports.checkClient = (req, res, next) => {
   const authorizationHeader = req.headers["authorization"];
   // 'Beaer [token]'

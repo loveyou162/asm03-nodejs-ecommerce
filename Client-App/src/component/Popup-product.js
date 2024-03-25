@@ -1,6 +1,7 @@
 import classes from "./Popup-product.module.css";
 import { Link } from "react-router-dom";
 import { usePopup } from "../hook/usePopup";
+
 const Popup = (props) => {
   const { show, selectedProduct, hidePopup, formatPrice } = usePopup();
   if (!selectedProduct) {

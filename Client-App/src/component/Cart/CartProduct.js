@@ -4,8 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { cartActions } from "../../store.js/cartSlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
-const accessToken = localStorage.getItem("accessToken");
+
 const CartProduct = () => {
+  const accessToken = localStorage.getItem("accessToken");
   const navigate = useNavigate();
   const previousPage = () => {
     navigate(-1);
@@ -25,7 +26,7 @@ const CartProduct = () => {
   //load dữ liệu cart khi có sự thay đổi về số lượng
   useEffect(() => {
     axios
-      .get("http://localhost:5000/shop/cart", optionAxios)
+      .get(`https://asm03-nodejs-server.onrender.com/shop/cart`, optionAxios)
       .then((response) => {
         setCartItemData(response.data);
         dispatch(cartActions.updateCart(response.data));
@@ -37,7 +38,7 @@ const CartProduct = () => {
   const increment = (itemId) => {
     axios
       .post(
-        `http://localhost:5000/shop/add-cart`,
+        `https://asm03-nodejs-server.onrender.com/shop/add-cart`,
         { productId: itemId },
         optionAxios
       )
@@ -53,7 +54,7 @@ const CartProduct = () => {
   const decrement = (itemId) => {
     axios
       .post(
-        "http://localhost:5000/shop/decrement-cart",
+        `https://asm03-nodejs-server.onrender.com/shop/decrement-cart`,
         { productId: itemId },
         optionAxios
       )
@@ -74,7 +75,7 @@ const CartProduct = () => {
   const remove = (itemId) => {
     axios
       .post(
-        "http://localhost:5000/shop/delete-cart",
+        `https://asm03-nodejs-server.onrender.com/shop/delete-cart`,
         { productId: itemId },
         optionAxios
       )

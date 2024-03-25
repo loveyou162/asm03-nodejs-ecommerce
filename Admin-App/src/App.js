@@ -48,7 +48,6 @@ function App() {
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
     const storedRefreshToken = localStorage.getItem("refreshToken");
-
     if (storedAccessToken) {
       setAccessToken(storedAccessToken);
     }
@@ -62,13 +61,17 @@ function App() {
     }, 3580 * 1000); // 29 seconds, để đảm bảo refreshToken được gửi trước khi accessToken hết hạn
 
     return () => clearInterval(interval);
-  }, []);
+  }, [accessToken]);
   const handleRefreshToken = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/shop/refreshToken",
+        `https://asm03-nodejs-server.onrender.com/auth/refreshToken`,
         {
           token: refreshToken,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
       );
       const newAccessToken = response.data.accessToken;

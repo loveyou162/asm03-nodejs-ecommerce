@@ -13,7 +13,7 @@ function ProductList() {
   const [product, setProduct] = useState([]);
   const params = useParams();
   const data = useRouteLoaderData("root");
-  //   console.log(data);
+  console.log(data);
   const increment = () => {
     dispatch(counterAction.increment());
   };

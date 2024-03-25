@@ -14,6 +14,7 @@ import IphoneProduct from "./component/Shop/ProductList";
 import OrderPage, { loader as OrderListLoader } from "./pages/Order";
 import OrderDetail, { loader as OrderDetailLoader } from "./pages/OrderDetail";
 import { useEffect, useState } from "react";
+import axios from "axios";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -67,7 +68,6 @@ function App() {
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
     const storedRefreshToken = localStorage.getItem("refreshToken");
-
     if (storedAccessToken) {
       setAccessToken(storedAccessToken);
     }
@@ -78,16 +78,20 @@ function App() {
     // Lặp lại gửi refreshToken mỗi khi accessToken hết hạn
     const interval = setInterval(() => {
       handleRefreshToken();
-    }, 3580 * 1000); // 29 seconds, để đảm bảo refreshToken được gửi trước khi accessToken hết hạn
+    }, 3580 * 1000); // 2580 seconds, để đảm bảo refreshToken được gửi trước khi accessToken hết hạn
 
     return () => clearInterval(interval);
-  }, []);
+  }, [accessToken]);
   const handleRefreshToken = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/shop/refreshToken",
+        `https://asm03-nodejs-server.onrender.com/auth/refreshToken`,
         {
           token: refreshToken,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
       );
       const newAccessToken = response.data.accessToken;

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 // import { Cookies } from "react-cookie";
 import axios from "axios";
 const accessToken = localStorage.getItem("accessToken");
+
 function Navbar() {
   const isLogout = useSelector((state) => state.auth.islogin);
   const [isLogouted, setIsLogouted] = useState(null);
@@ -33,7 +34,7 @@ function Navbar() {
     try {
       axios
         .post(
-          "http://localhost:5000/shop/logout",
+          `https://asm03-nodejs-server.onrender.com/shop/logout`,
           {
             token: accessToken,
           },

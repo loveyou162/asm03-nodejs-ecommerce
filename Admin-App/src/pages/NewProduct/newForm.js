@@ -27,13 +27,16 @@ const NewForm = () => {
   useEffect(() => {
     !isNew &&
       axios
-        .get(`http://localhost:5000/admin/update-product?prodId=${productId}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          withCredentials: true,
-        })
+        .get(
+          `https://asm03-nodejs-server.onrender.com/admin/update-product?prodId=${productId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            withCredentials: true,
+          }
+        )
         .then((response) => {
           setFormInput(response.data);
         });
@@ -70,13 +73,17 @@ const NewForm = () => {
     formData.append("productId", productId);
 
     axios
-      .post("http://localhost:5000/admin/update-product", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        withCredentials: true,
-      })
+      .post(
+        "https://asm03-nodejs-server.onrender.com/admin/update-product",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         alert("Đã update sản phẩm thành công!");
       })
@@ -102,19 +109,22 @@ const NewForm = () => {
     });
 
     axios
-      .post("http://localhost:5000/admin/new-product", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        withCredentials: true,
-      })
+      .post(
+        "https://asm03-nodejs-server.onrender.com/admin/new-product",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          withCredentials: true,
+        }
+      )
       .then((response) => {
-        alert("Đã tạo sản phẩm thành công!");
-      })
-      .then(() => {
+        alert(response.data.message);
         navigate("/admin/product");
       })
+      .then(() => {})
       .catch((err) => {
         console.log(err);
       });
@@ -153,14 +163,22 @@ const NewForm = () => {
         <div className={classes["group-input2"]}>
           <div className={classes["input-item"]}>
             <label htmlFor="category">Category</label>
-            <input
-              type="text"
-              name="category"
-              id="category"
-              placeholder="Enter Category"
-              defaultValue={formInput.category}
+
+            <select
               onChange={inputChangeHandler}
-            />
+              defaultValue={formInput.category}
+              name="category"
+            >
+              <option value="">Selected Category</option>
+              <option value="iphone">iphone</option>
+              <option value="ipad">ipad</option>
+              <option value="macbook">macbook</option>
+              <option value="airpod">airpod</option>
+              <option value="watch">watch</option>
+              <option value="mouse">mouse</option>
+              <option value="keyboard">keyboard</option>
+              <option value="other">other</option>
+            </select>
           </div>
           <div className={classes["input-item"]}>
             <label htmlFor="count">Count</label>

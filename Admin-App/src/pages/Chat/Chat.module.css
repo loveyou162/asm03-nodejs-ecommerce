@@ -124,7 +124,6 @@
 
 .chat-messages {
   height: 730px;
-  overflow-y: auto;
   padding: 10px;
   scroll-behavior: smooth;
 }

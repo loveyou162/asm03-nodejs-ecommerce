@@ -26,7 +26,6 @@ const sendEmailService = async (email, subject, html) => {
   return info;
 };
 exports.postSignup = async (req, res, next) => {
-  console.log(25, req.session.id);
   const { fullname, email, password, phone, role } = req.body;
   const error = validationResult(req);
   console.log(27, error.array());
@@ -132,15 +131,29 @@ exports.postLogouts = (req, res, next) => {
 };
 exports.postRefreshToken = (req, res, next) => {
   const refreshToken = req.body.token;
-  if (!refreshToken) res.sendStatus(401);
-  if (!refreshTokens.includes(refreshToken)) res.sendStatus(403);
+  console.log(134, refreshTokens);
+  console.log(135, refreshToken);
+  if (!refreshToken) return res.status(401).send("Refresh token is missing");
+  if (!refreshTokens.includes(refreshToken))
+    return res.status(403).send("Invalid refresh token");
 
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, data) => {
-    console.log(err, data);
-    if (err) res.sendStatus(403);
-    const accessToken = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, {
+    console.log(139, err, data);
+    const keyData = Object.entries(data);
+    console.log(143, keyData);
+    const keys = keyData.map((entry) => entry[0]).slice(0, 3);
+    const values = keyData.map((entry) => entry[1]).slice(0, 3);
+    const result = keys.reduce((acc, key, index) => {
+      acc[key] = values[index];
+      return acc;
+    }, {});
+    console.log(result);
+    // const refreshData = {};
+    if (err) return res.status(403).send("Failed to verify refresh token");
+    const accessToken = jwt.sign(result, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "3600s",
     });
+    console.log(146, accessToken);
     res.json({ accessToken });
   });
 };

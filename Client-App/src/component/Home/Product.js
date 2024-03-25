@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 function Products() {
   const dispatch = useDispatch();
   const data = useRouteLoaderData("root");
-  console.log(data);
   let priceArr = [];
   //lặp qua mảng data để lấy dữ liệu price và chuyển vào mảng priceArr
   data.forEach(function (obj) {
@@ -30,7 +29,6 @@ function Products() {
   // hạn chế số lượng sản phẩm hiển thị tối đa 8 sản phẩm
   const maxProduct = 8;
   const limitedData = data.slice(0, maxProduct);
-  console.table(limitedData);
 
   return (
     <div className={classes.products}>

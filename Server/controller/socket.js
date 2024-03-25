@@ -5,15 +5,14 @@ const Room = require("../models/room");
 // Function to initialize Socket.IO
 const initSocketIO = (server) => {
   // Create a new instance of Socket.IO and pass the server instance to it
-  //   console.log(5, server);
   const io = new Server(server, {
     cors: {
       origin: [
         "http://localhost:3001",
         "http://localhost:3000",
         "http://localhost:3002",
-        "https://admin-nodejs-03-4a9f5.web.app",
-        "https://client-nodejs-03-41bd8.web.app",
+        "https://admin-nodejs03-d94a9.web.app",
+        "https://client-nodejs03-a429d.web.app",
       ],
       methods: ["GET", "POST"],
     },
@@ -86,12 +85,10 @@ const initSocketIO = (server) => {
     });
     // client và admin chat với nhau thì cập nhật trên mongo
     socket.on("send-admin", async (data) => {
-      console.log(90, data);
       try {
         //tạo message mới khi có tin nhắn mới
         const newMessage = new Message({
           content: data.message,
-          // userId: data.user,
           roomId: data.roomId,
           role: data.role,
         });

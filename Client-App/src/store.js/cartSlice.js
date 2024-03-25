@@ -1,15 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 const accessToken = localStorage.getItem("accessToken");
-// function updateTotalAmount(state) {
-//   state.totalAmount = state.items.reduce(
-//     (total, item) => total + item.quantity * item.price,
-//     0
-//   );
-//   localStorage.setItem("totalAmount", JSON.stringify(state.totalAmount));
-// }
-
-//
 
 const cartSlice = createSlice({
   name: "cart",
@@ -35,7 +26,7 @@ const cartSlice = createSlice({
 
       axios
         .post(
-          `http://localhost:5000/shop/add-cart`,
+          `https://asm03-nodejs-server.onrender.com/shop/add-cart`,
           { productId: itemId },
           {
             headers: {
@@ -59,7 +50,7 @@ const cartSlice = createSlice({
       const itemId = action.payload;
       axios
         .post(
-          "http://localhost:5000/shop/decrement-cart",
+          `https://asm03-nodejs-server.onrender.com/shop/decrement-cart`,
           { productId: itemId },
           {
             headers: {
@@ -82,7 +73,7 @@ const cartSlice = createSlice({
       const itemId = action.payload;
       axios
         .post(
-          "http://localhost:5000/shop/delete-cart",
+          `https://asm03-nodejs-server.onrender.com/shop/delete-cart`,
           { productId: itemId },
           {
             headers: {

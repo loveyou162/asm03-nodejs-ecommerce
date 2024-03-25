@@ -93,9 +93,11 @@ exports.postDecrementCart = (req, res, next) => {
   Product.findById(prodId)
     .then((product) => {
       console.log(product);
+      // dùng phương thức decrement của usẻ để giảm số lượng 1 sản phẩm trong giỏ hàng
       return req.user.decrementToCart(product);
     })
     .then((user) => {
+      //tìm kiếm sản phẩm trong giỏ hàng của người dùng đó
       const productId = user.cart.items.find((product) => {
         return product.productId.toString() === prodId.toString();
       });
@@ -139,16 +141,16 @@ exports.postOrder = async (req, res, next) => {
   try {
     console.log({ totalPrice, fullname, email, phone, address });
 
-    // Fetch user and populate cart items with product details
+    // Tìm nạp người dùng và điền chi tiết sản phẩm vào các mục trong giỏ hàng
     const user = await req.user.populate("cart.items.productId");
 
-    // Extract products and quantities from the cart
+    // Trích xuất sản phẩm và số lượng từ giỏ hàng
     const products = user.cart.items.map((item) => ({
       quantity: item.quantity,
       product: { ...item.productId._doc },
     }));
 
-    // Check product availability before order creation
+    // Kiểm tra tình trạng còn hàng của sản phẩm trước khi tạo đơn hàng
     const insufficientStock = products.some(
       (item) => item.quantity > item.product.count
     );
@@ -160,12 +162,12 @@ exports.postOrder = async (req, res, next) => {
       });
     }
 
-    // Update product counts (assuming you have a separate updateProduct function)
+    // Cập nhật số lượng sản phẩm (giả sử bạn có hàm updateProduct riêng)
     await Promise.all(
       products.map((item) => updateProduct(item.product._id, item.quantity))
     );
 
-    // Create the order object with updated products
+    // Tạo đối tượng đặt hàng với các sản phẩm đã cập nhật
     const order = new Order({
       date: new Date(),
       user: {
@@ -179,7 +181,7 @@ exports.postOrder = async (req, res, next) => {
       products: products,
     });
 
-    // Generate product list for email (if necessary)
+    // Tạo danh sách sản phẩm cho email (nếu cần)
     const productList = user.cart.items
       .map(
         (item) => `

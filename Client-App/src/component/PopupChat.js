@@ -2,16 +2,18 @@ import classes from "./Popupchat.module.css";
 import imgAdmin from "../assets/Resource Assignment 03/admin.png";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:5000");
+
+const socket = io(`https://asm03-nodejs-server.onrender.com`);
 function PopupChat() {
   console.log("start");
   //hàm ẩn hiện hộp chat
+  const chatMessagesRef = useRef(null);
   const [active, setActive] = useState(false);
   const [message, setMessage] = useState("");
   const [receiveMessage, setReceiveMessage] = useState(null);
   const [roomId, setRoomId] = useState(localStorage.getItem("roomId") || "");
-  const chatMessagesRef = useRef(null);
   const currentUser = JSON.parse(localStorage.getItem("currentName"));
+
   const dataSocket = {
     message: message,
     user: currentUser,
@@ -22,9 +24,11 @@ function PopupChat() {
     setActive(!active);
   };
   useEffect(() => {
+    //nếu có roomId trong localStorage thì gửi emit vao-phong
     if (localStorage.getItem("roomId")) {
       socket.emit("vao-phong", roomId);
     }
+    //nhận kết quả phòng đó và lọc để lấy message
     socket.on("vao-phong1", (data) => {
       console.log(data);
       if (data.find((mov) => mov.roomId === roomId)) {
@@ -37,10 +41,9 @@ function PopupChat() {
       }
     });
   }, [socket]);
-  // tìm hết lại những message đã chat
 
   console.log(receiveMessage);
-
+  // hàm tạo id phòng mới
   function generateNewRoomId() {
     return (Math.random() * 1000000).toFixed(0).toString();
   }
@@ -51,13 +54,14 @@ function PopupChat() {
       if (message === "/end") {
         alert("bạn chưa có phòng nào để kết thúc");
       } else {
-        // tạo phòng mới
+        // tạo id phòng mới
         const newRoomId = generateNewRoomId(); // Hàm tạo roomId mới
         setRoomId(newRoomId);
         localStorage.setItem("roomId", newRoomId);
         socket.emit("newRoomId", { room: newRoomId, ...dataSocket });
       }
     }
+    // nếu message = /end xóa phòng và đặt lại các giá trị
     if (message === "/end") {
       socket.emit("end-room", {
         roomId: roomId,
@@ -97,12 +101,11 @@ function PopupChat() {
       }
     }
   });
-  console.log(roomId);
+  // nhận tin nhắn từ admin tương ứng với id phòng
   socket.on(roomId, (data) => {
     console.log(data);
     setReceiveMessage(data.room.messages);
   });
-  console.log(receiveMessage);
   useEffect(() => {
     // Tự động cuộn xuống dưới cùng của hộp tin nhắn khi có tin nhắn mới
     chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
