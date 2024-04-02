@@ -110,3 +110,12 @@
   border: 1px solid #ccc;
   background-color: transparent;
 }
+@media only screen and (max-width: 480px) {
+  .productItem {
+    display: block;
+  }
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

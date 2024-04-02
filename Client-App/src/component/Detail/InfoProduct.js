@@ -1,7 +1,7 @@
 import classes from "./InfoProduct.module.css";
 
 import RelatedProduct from "./RelatedProduct";
-import { useParams, useRouteLoaderData } from "react-router";
+import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -93,7 +93,7 @@ function InfoProduct() {
       {/* Hình ảnh chính của sản phẩm */}
       <img
         className={classes.imgMain}
-        src={productData.img1}
+        src={productData.img3}
         alt={productData.name}
       />
       {/* Thông tin chi tiết sản phẩm */}

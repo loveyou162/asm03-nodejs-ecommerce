@@ -27,6 +27,7 @@ footer {
   text-transform: capitalize;
 }
 .titleFooter {
+  height: 75px;
   padding: 16px 0;
   font-size: 1.2rem;
   text-transform: uppercase;
@@ -34,4 +35,14 @@ footer {
 .company {
 }
 .social {
+}
+@media only screen and (max-width: 480px) {
+  .titleFooter {
+    height: 75px;
+    font-size: 1rem;
+  }
+  .footer {
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

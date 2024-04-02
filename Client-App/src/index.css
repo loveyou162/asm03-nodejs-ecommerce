@@ -30,3 +30,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+/* Các quy tắc CSS áp dụng cho màn hình có chiều rộng ít hơn hoặc bằng 768px */
+@media only screen and (max-width: 820px) {
+  main {
+    margin: 0 10%;
+  }
+}
+/* Các quy tắc CSS áp dụng cho màn hình có chiều rộng ít hơn hoặc bằng 480px */
+@media only screen and (max-width: 480px) {
+  main {
+    margin: 0 5%;
+  }
+}

@@ -43,3 +43,13 @@
 .checkout-total__all > p {
   font-size: 1.2rem;
 }
+@media only screen and (max-width: 1100px) {
+  .checkout-total__subtotal {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    justify-items: stretch;
+  }
+}
