@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+## Web Page Ecommerce - Trang Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+Trang client của chúng tôi là nơi khách hàng có thể khám phá và mua các sản phẩm đa dạng từ cửa hàng của chúng tôi. Tính năng này được thiết kế để cung cấp trải nghiệm mua sắm thuận tiện và thoải mái cho người dùng.
 
-In the project directory, you can run:
+<img src="https://i.imgur.com/WwFCvQa.png" alt="admin"/>
 
-### `npm start`
+### Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React
+- JavaScript
+- Axios
+- React Router DOM
+- React-redux
+- Redux-toolkit
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+### 🚀 Usage
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    npm start
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🎛️ Chức năng
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1 Xem Sản phẩm
+Chức năng này cho phép người dùng xem danh sách các sản phẩm hiện có trong cửa hàng. Danh sách này bao gồm thông tin cơ bản về mỗi sản phẩm như tên, giá và hình ảnh.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img src="https://i.imgur.com/fwxQZjy.png" width="50%"/>
 
-### `npm run eject`
+2 Xem Chi tiết sản phẩm
+Người dùng có thể xem chi tiết của một sản phẩm bằng cách nhấp vào sản phẩm từ danh sách sản phẩm. Chi tiết sản phẩm bao gồm mô tả, giá, hình ảnh và các thuộc tính khác của sản phẩm.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<img src="https://i.imgur.com/EbD3D65.png" width="50%"/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3 Thêm vào giỏ hàng
+Chức năng này cho phép người dùng thêm sản phẩm vào giỏ hàng của họ từ trang chi tiết sản phẩm hoặc từ danh sách sản phẩm.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4 Xem Giỏ hàng
+Người dùng có thể xem các sản phẩm đã thêm vào giỏ hàng của họ. Danh sách giỏ hàng bao gồm thông tin về mỗi sản phẩm, số lượng và tổng giá của giỏ hàng.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5 Thanh toán
+Người dùng có thể tiến hành thanh toán các sản phẩm trong giỏ hàng của họ bằng cách điền thông tin thanh toán và gửi đơn hàng.
 
-## Learn More
+6 Chat với admin
+Người dùng có thể gửi message đến bộ phận tư vấn bán hàng để hỏi thêm về sản phẩm
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 🛠️Cài đặt và triển khai
 
-### Code Splitting
+```c
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Đảm bảo rằng bạn đã cài đặt và cấu hình đầy đủ môi trường để triển khai trang admin.
+- Clone repo từ kho lưu trữ.
+- Thực hiện các cấu hình cần thiết cho trang client theo nhu cầu của bạn.
+- Triển khai ứng dụng trên môi trường của bạn và kiểm tra chức năng.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Required
 
-### Making a Progressive Web App
+Node.js
+MongoDB (hoặc một hệ thống quản lý cơ sở dữ liệu khác)
+Trình duyệt web hiện đại (Chrome, Firefox, Safari, Edge)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+### Tác giả
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Phạm Đình Thắng
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Lời kết
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Trang client Ecommerce của chúng tôi là cánh cửa mở ra thế giới sản phẩm đa dạng và phong phú từ cửa hàng của chúng tôi. Chúng tôi hy vọng rằng trải nghiệm mua sắm trên trang của chúng tôi sẽ mang lại sự hài lòng và tiện ích tối đa cho khách hàng của chúng tôi. Hãy tham gia cùng chúng tôi trên hành trình mua sắm trực tuyến đầy thú vị này!

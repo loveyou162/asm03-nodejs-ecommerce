@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+## Hệ thống quản lý sản phẩm của cửa hàng - Trang Admin
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+Trang admin quản lý sản phẩm của cửa hàng là một phần của hệ thống quản lý toàn diện, được thiết kế để quản lý các sản phẩm, đơn hàng và thống kê dữ liệu liên quan.
 
-In the project directory, you can run:
+<img src="https://i.imgur.com/oZOkM71.png" alt="admin"/>
 
-### `npm start`
+### Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- filebase, react, javascript, axios, socket.io-client, react-router-dom
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+### 🚀 Usage
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+      npm start
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🎛️ Chức năng
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Thêm mới sản phẩm
+   Chức năng này cho phép người quản trị thêm một sản phẩm mới vào cửa hàng. Người quản trị cần điền đầy đủ thông tin về sản phẩm như tên, mô tả, giá, hình ảnh, và các thuộc tính khác nếu có.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Sửa sản phẩm
+   Chức năng này cho phép người quản trị sửa đổi thông tin của một sản phẩm hiện có. Người quản trị có thể chỉnh sửa các thông tin như tên, mô tả, giá, hình ảnh, và các thuộc tính khác của sản phẩm.
 
-### `npm run eject`
+3. Xem sản phẩm
+   Chức năng này cho phép người quản trị xem danh sách các sản phẩm hiện có trong cửa hàng. Danh sách này bao gồm thông tin cơ bản về mỗi sản phẩm như tên, giá, và số lượng tồn kho.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Xóa sản phẩm
+   Chức năng này cho phép người quản trị xóa một hoặc nhiều sản phẩm khỏi cửa hàng. Trước khi xóa, hệ thống yêu cầu xác nhận từ người quản trị để đảm bảo tính chính xác của hành động này.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Xem đơn hàng
+   Chức năng này cho phép người quản trị xem danh sách các đơn hàng đã được đặt trong cửa hàng. Danh sách này bao gồm các thông tin như mã đơn hàng, ngày đặt hàng, khách hàng, sản phẩm đặt mua, và tổng giá trị đơn hàng.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+6. Bảng điều khiển (Dashboard)
+   Chức năng này cung cấp cái nhìn tổng quan về hoạt động của cửa hàng. Người quản trị có thể xem các thống kê về doanh số bán hàng, số lượng đơn hàng, các sản phẩm bán chạy, và các thông tin quan trọng khác.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### 🛠️Cài đặt và triển khai
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```c
+   npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Đảm bảo rằng bạn đã cài đặt và cấu hình đầy đủ môi trường để triển khai trang admin.
+Clone repo từ kho lưu trữ.
+Cấu hình tài khoản admin và quyền truy cập theo nhu cầu của bạn.
+Triển khai ứng dụng trên môi trường của bạn và kiểm tra chức năng.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Required
 
-### Analyzing the Bundle Size
+Node.js
+MongoDB (hoặc một hệ thống quản lý cơ sở dữ liệu khác)
+Trình duyệt web hiện đại (Chrome, Firefox, Safari, Edge)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+### Tác giả
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Phạm Đình Thắng
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Lời kết
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Trang admin quản lý sản phẩm của cửa hàng là một phần quan trọng trong việc quản lý và vận hành cửa hàng trực tuyến. Chúng giúp người quản trị theo dõi, cập nhật, và quản lý các sản phẩm và đơn hàng một cách hiệu quả. Đảm bảo rằng bạn đã cấu hình và triển khai trang admin một cách đúng đắn để đảm bảo hoạt động ổn định và hiệu quả.
