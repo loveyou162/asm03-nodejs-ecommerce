@@ -84,7 +84,7 @@ Có thể format cho link luôn
 
 ## Chèn hình ảnh
 
-![alt text](z5305630368321_5ab90acbe5f3147f397cc821552f9a5f.jpg)
+![z5305630347720_0f69393b7a382ba3762c684b83ff27cc11](https://i.imgur.com/eT7R2Ii.jpeg)
 hoặc dùng thẻ để chỉnh kích thước
 <img src="z5305630368321_5ab90acbe5f3147f397cc821552f9a5f.jpg" width="300">
 
