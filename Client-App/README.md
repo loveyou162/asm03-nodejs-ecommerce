@@ -55,18 +55,10 @@ Người dùng có thể gửi message đến bộ phận tư vấn bán hàng �
 npm install
 ```
 
-- Đảm bảo rằng bạn đã cài đặt và cấu hình đầy đủ môi trường để triển khai trang admin.
+- Đảm bảo rằng bạn đã cài đặt và cấu hình đầy đủ môi trường để triển khai trang client.
 - Clone repo từ kho lưu trữ.
 - Thực hiện các cấu hình cần thiết cho trang client theo nhu cầu của bạn.
 - Triển khai ứng dụng trên môi trường của bạn và kiểm tra chức năng.
-
----
-
-### Required
-
-Node.js
-MongoDB (hoặc một hệ thống quản lý cơ sở dữ liệu khác)
-Trình duyệt web hiện đại (Chrome, Firefox, Safari, Edge)
 
 ---
 

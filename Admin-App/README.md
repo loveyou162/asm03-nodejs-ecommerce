@@ -53,14 +53,6 @@ Triển khai ứng dụng trên môi trường của bạn và kiểm tra chức
 
 ---
 
-### Required
-
-Node.js
-MongoDB (hoặc một hệ thống quản lý cơ sở dữ liệu khác)
-Trình duyệt web hiện đại (Chrome, Firefox, Safari, Edge)
-
----
-
 ### Tác giả
 
 Phạm Đình Thắng
