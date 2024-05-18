@@ -16,7 +16,7 @@ const CheckoutTotal = () => {
   };
   useEffect(() => {
     axios
-      .get(`https://asm03-nodejs-server.onrender.com/shop/cart`, optionAxios)
+      .get(`http://localhost:5000/shop/cart`, optionAxios)
       .then((response) => {
         console.log(response.data);
         setProductItem(response.data);

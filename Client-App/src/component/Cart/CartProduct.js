@@ -26,7 +26,7 @@ const CartProduct = () => {
   //load dữ liệu cart khi có sự thay đổi về số lượng
   useEffect(() => {
     axios
-      .get(`https://asm03-nodejs-server.onrender.com/shop/cart`, optionAxios)
+      .get(`http://localhost:5000/shop/cart`, optionAxios)
       .then((response) => {
         setCartItemData(response.data);
         dispatch(cartActions.updateCart(response.data));
@@ -38,7 +38,7 @@ const CartProduct = () => {
   const increment = (itemId) => {
     axios
       .post(
-        `https://asm03-nodejs-server.onrender.com/shop/add-cart`,
+        `http://localhost:5000/shop/add-cart`,
         { productId: itemId },
         optionAxios
       )
@@ -54,7 +54,7 @@ const CartProduct = () => {
   const decrement = (itemId) => {
     axios
       .post(
-        `https://asm03-nodejs-server.onrender.com/shop/decrement-cart`,
+        `http://localhost:5000/shop/decrement-cart`,
         { productId: itemId },
         optionAxios
       )
@@ -75,7 +75,7 @@ const CartProduct = () => {
   const remove = (itemId) => {
     axios
       .post(
-        `https://asm03-nodejs-server.onrender.com/shop/delete-cart`,
+        `http://localhost:5000/shop/delete-cart`,
         { productId: itemId },
         optionAxios
       )

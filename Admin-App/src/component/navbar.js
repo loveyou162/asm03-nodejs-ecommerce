@@ -9,7 +9,7 @@ const Navbar = () => {
     try {
       axios
         .post(
-          "https://asm03-nodejs-server.onrender.com/admin/logout",
+          "http://localhost:5000/admin/logout",
           {
             token: accessToken,
           },

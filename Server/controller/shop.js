@@ -1,26 +1,8 @@
 const Product = require("../models/product");
 const User = require("../models/user");
 const Order = require("../models/order");
-const nodemailer = require("nodemailer");
 const { validationResult } = require("express-validator");
-const sendEmailService = async (email, subject, html) => {
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "caoboi520@gmail.com",
-      pass: "dcnzdobumhlxmjrf",
-    },
-  });
-  const info = await transporter.sendMail({
-    from: '"Thắng Phạm 👻" <caoboi520@gmail.com>', // sender address
-    to: email, // list of receivers
-    subject: subject, // Subject line
-    html: html, // html body
-  });
-  return info;
-};
+const { sendEmailService } = require("../service/EmailService");
 const formatPrice = (price) => {
   // Chuyển đổi số thành chuỗi
   let priceString = price.toString();
@@ -53,12 +35,15 @@ exports.getDetailProduct = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
   console.log("getCart: ", req.user);
+  // Populate the cart items with the product details
   req.user
     .populate("cart.items.productId")
     .then((user) => {
+      // Send the cart items as a JSON response
       res.json(user.cart.items);
     })
     .catch((err) => {
+      // Handle any errors that occur during the retrieval process
       const error = new Error(err);
       error.httpStatusCode = 500;
       return next(error);
@@ -67,22 +52,30 @@ exports.getCart = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
+
+  // Find the product by its ID
   Product.findById(prodId)
     .then((product) => {
+      // Check if the product is in stock
       if (product.count > 0) {
+        // Add the product to the user's cart
         return req.user.addToCart(product);
       } else {
+        // If the product is out of stock, send a message
         return res.json({ message: "Số lượng sản phẩm đang tạm hết!" });
       }
     })
     .then((user) => {
+      // Find the added product in the user's cart
       const productId = user.cart.items.find((product) => {
         return product.productId.toString() === prodId.toString();
       });
 
+      // Send the quantity of the added product as a JSON response
       res.json({ quantity: productId });
     })
     .catch((err) => {
+      // Handle any errors that occur during the process
       const error = new Error(err);
       error.httpStatusCode = 500;
       return next(error);

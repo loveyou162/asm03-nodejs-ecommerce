@@ -78,16 +78,13 @@ export default Dashboard;
 export async function loader() {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await axios.get(
-      "https://asm03-nodejs-server.onrender.com/admin/dashboard",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get("http://localhost:5000/admin/dashboard", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     throw new Response(

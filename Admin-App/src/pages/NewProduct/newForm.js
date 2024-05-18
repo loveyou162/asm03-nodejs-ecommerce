@@ -27,16 +27,13 @@ const NewForm = () => {
   useEffect(() => {
     !isNew &&
       axios
-        .get(
-          `https://asm03-nodejs-server.onrender.com/admin/update-product?prodId=${productId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-            withCredentials: true,
-          }
-        )
+        .get(`http://localhost:5000/admin/update-product?prodId=${productId}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          withCredentials: true,
+        })
         .then((response) => {
           setFormInput(response.data);
         });
@@ -73,17 +70,13 @@ const NewForm = () => {
     formData.append("productId", productId);
 
     axios
-      .post(
-        "https://asm03-nodejs-server.onrender.com/admin/update-product",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          withCredentials: true,
-        }
-      )
+      .post("http://localhost:5000/admin/update-product", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        withCredentials: true,
+      })
       .then((response) => {
         alert("Đã update sản phẩm thành công!");
       })
@@ -109,17 +102,13 @@ const NewForm = () => {
     });
 
     axios
-      .post(
-        "https://asm03-nodejs-server.onrender.com/admin/new-product",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          withCredentials: true,
-        }
-      )
+      .post("http://localhost:5000/admin/new-product", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        withCredentials: true,
+      })
       .then((response) => {
         alert(response.data.message);
         navigate("/admin/product");

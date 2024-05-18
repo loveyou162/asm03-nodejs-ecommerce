@@ -4,7 +4,7 @@ import imgAdmin from "../../assets/Resource Assignment 03/admin.png";
 import { io } from "socket.io-client";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-const socket = io("https://asm03-nodejs-server.onrender.com");
+const socket = io("http://localhost:5000");
 
 const ChatPage = () => {
   const [roomId, setRoomId] = useState("");
@@ -160,16 +160,13 @@ export default ChatPage;
 export async function loader() {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await axios.get(
-      "https://asm03-nodejs-server.onrender.com/admin/all-room",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get("http://localhost:5000/admin/all-room", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      withCredentials: true,
+    });
     return response.data;
   } catch (err) {
     throw new Error(err);

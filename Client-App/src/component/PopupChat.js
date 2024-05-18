@@ -3,7 +3,7 @@ import imgAdmin from "../assets/Resource Assignment 03/admin.png";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
-const socket = io(`https://asm03-nodejs-server.onrender.com`);
+const socket = io(`http://localhost:5000`);
 function PopupChat() {
   console.log("start");
   //hàm ẩn hiện hộp chat

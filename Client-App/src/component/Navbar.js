@@ -34,7 +34,7 @@ function Navbar() {
     try {
       axios
         .post(
-          `https://asm03-nodejs-server.onrender.com/shop/logout`,
+          `http://localhost:5000/shop/logout`,
           {
             token: accessToken,
           },

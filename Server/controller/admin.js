@@ -3,9 +3,9 @@ const User = require("../models/user");
 const Order = require("../models/order");
 const room = require("../models/room");
 const fileHelper = require("../util/file");
-//hàm xóa "https://asm03-nodejs-server.onrender.com/"
+//hàm xóa "http://localhost:5000/"
 const filePath = (path) => {
-  return path.replace("https://asm03-nodejs-server.onrender.com/", "");
+  return path.replace("http://localhost:5000/", "");
 };
 exports.getProductsAdmin = async (req, res, next) => {
   Product.find()
@@ -60,10 +60,10 @@ exports.postNewProduct = (req, res, next) => {
     price: price,
     category: category,
     count: count,
-    img1: `https://asm03-nodejs-server.onrender.com/${images[0].path}`,
-    img2: `https://asm03-nodejs-server.onrender.com/${images[1].path}`,
-    img3: `https://asm03-nodejs-server.onrender.com/${images[2].path}`,
-    img4: `https://asm03-nodejs-server.onrender.com/${images[3].path}`,
+    img1: `http://localhost:5000/${images[0].path}`,
+    img2: `http://localhost:5000/${images[1].path}`,
+    img3: `http://localhost:5000/${images[2].path}`,
+    img4: `http://localhost:5000/${images[3].path}`,
     short_desc: shortDesc,
     long_desc: longDesc,
     userId: req.user,
@@ -106,25 +106,25 @@ exports.postUpdateProduct = (req, res, next) => {
       if (images[0]) {
         fileHelper.deleteFile(filePath(product.img1));
         product.img1 = images[0]
-          ? `https://asm03-nodejs-server.onrender.com/${images[0].path}`
+          ? `http://localhost:5000/${images[0].path}`
           : product.img1;
       }
       if (images[1]) {
         fileHelper.deleteFile(filePath(product.img2));
         product.img2 = images[1]
-          ? `https://asm03-nodejs-server.onrender.com/${images[1].path}`
+          ? `http://localhost:5000/${images[1].path}`
           : product.img2;
       }
       if (images[2]) {
         fileHelper.deleteFile(filePath(product.img3));
         product.img3 = images[2]
-          ? `https://asm03-nodejs-server.onrender.com/${images[2].path}`
+          ? `http://localhost:5000/${images[2].path}`
           : product.img3;
       }
       if (images[3]) {
         fileHelper.deleteFile(filePath(product.img4));
         product.img4 = images[3]
-          ? `https://asm03-nodejs-server.onrender.com/${images[3].path}`
+          ? `http://localhost:5000/${images[3].path}`
           : product.img4;
       }
       product.short_desc = shortDesc ? shortDesc : product.short_desc;

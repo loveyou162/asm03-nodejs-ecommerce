@@ -18,7 +18,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 
 dotenv.config();
-const MONGODB_URI = `mongodb+srv://caoboi520:Aw8umOX1tKDxMVsg@cluster0.fdehoqk.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0`;
+const MONGODB_URI = `mongodb+srv://caoboi520:h6QSvZUT90XI8Iu2@cluster0.fdehoqk.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0`;
 console.log(24, process.env.ACCESS_TOKEN_SECRET);
 const authRoute = require("./router/auth");
 const shopRoute = require("./router/shop");
@@ -31,7 +31,7 @@ app.use(
       "http://localhost:3001",
       "https://admin-nodejs03-d94a9.web.app",
       "https://client-nodejs03-a429d.web.app",
-      "https://asm03-nodejs-server.onrender.com",
+      "http://localhost:5000",
     ],
     credentials: true,
     method: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
@@ -44,7 +44,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       // Cho phép hiển thị ảnh từ đường dẫn /images
-      "img-src": ["'self'", "https://asm03-nodejs-server.onrender.com/images"],
+      "img-src": ["'self'", "http://localhost:5000/images"],
     },
   })
 );
@@ -113,7 +113,7 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-  res.status(500).json({ message: "error" });
+  res.status(500).json({ message: error });
 });
 
 app.use("/auth", authRoute);

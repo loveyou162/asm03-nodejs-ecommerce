@@ -26,7 +26,7 @@ const cartSlice = createSlice({
 
       axios
         .post(
-          `https://asm03-nodejs-server.onrender.com/shop/add-cart`,
+          `http://localhost:5000/shop/add-cart`,
           { productId: itemId },
           {
             headers: {
@@ -50,7 +50,7 @@ const cartSlice = createSlice({
       const itemId = action.payload;
       axios
         .post(
-          `https://asm03-nodejs-server.onrender.com/shop/decrement-cart`,
+          `http://localhost:5000/shop/decrement-cart`,
           { productId: itemId },
           {
             headers: {
@@ -73,7 +73,7 @@ const cartSlice = createSlice({
       const itemId = action.payload;
       axios
         .post(
-          `https://asm03-nodejs-server.onrender.com/shop/delete-cart`,
+          `http://localhost:5000/shop/delete-cart`,
           { productId: itemId },
           {
             headers: {

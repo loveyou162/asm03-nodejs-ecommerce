@@ -27,16 +27,13 @@ function AuthForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        `https://asm03-nodejs-server.onrender.com/auth/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...formData, role: "client" }),
-        }
-      );
+      const response = await fetch(`http://localhost:5000/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData, role: "client" }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to sign up");

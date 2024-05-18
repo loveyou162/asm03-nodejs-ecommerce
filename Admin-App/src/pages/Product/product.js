@@ -38,7 +38,7 @@ const ProductsPage = () => {
     // Thực hiện tìm kiếm dựa trên query
     return axios
       .post(
-        "https://asm03-nodejs-server.onrender.com/admin/search-product",
+        "http://localhost:5000/admin/search-product",
         { query: query },
         {
           headers: {
@@ -133,7 +133,7 @@ export async function loader() {
   try {
     const accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(
-      "https://asm03-nodejs-server.onrender.com/admin/all-product",
+      "http://localhost:5000/admin/all-product",
       {
         headers: {
           "Content-Type": "application/json",
@@ -156,7 +156,7 @@ export async function action({ request }) {
     const isConfirmed = window.confirm("Bạn có chắc muốn xóa không?");
     if (isConfirmed) {
       const response = await axios.delete(
-        `https://asm03-nodejs-server.onrender.com/admin/delete-product?prodId=${prodId}`,
+        `http://localhost:5000/admin/delete-product?prodId=${prodId}`,
         {
           headers: {
             "Content-Type": "application/json",

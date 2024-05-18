@@ -17,7 +17,7 @@ function InfoProduct() {
     const fetchDataDetail = async () => {
       try {
         const response = await axios.get(
-          `https://asm03-nodejs-server.onrender.com/shop/detail-product?prodId=${params.productId}`,
+          `http://localhost:5000/shop/detail-product?prodId=${params.productId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -40,7 +40,7 @@ function InfoProduct() {
   const addToCartHandler = () => {
     if (productData.count > 0) {
       axios.post(
-        `https://asm03-nodejs-server.onrender.com/shop/add-cart`,
+        `http://localhost:5000/shop/add-cart`,
         { productId: params.productId },
         {
           headers: {

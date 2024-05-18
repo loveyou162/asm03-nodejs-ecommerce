@@ -62,12 +62,19 @@ const router = createBrowserRouter([
   { path: "register", element: <RegisterPage /> },
   { path: "login", element: <LoginPage /> },
 ]);
+
 function App() {
+  // Hook trạng thái để lưu trữ access token và refresh token
   const [accessToken, setAccessToken] = useState("");
   const [refreshToken, setRefreshToken] = useState("");
+
+  // Hook hiệu ứng để quản lý vòng đời của token
   useEffect(() => {
+    // Lấy token từ local storage
     const storedAccessToken = localStorage.getItem("accessToken");
     const storedRefreshToken = localStorage.getItem("refreshToken");
+
+    // Cập nhật trạng thái với token đã lưu nếu có
     if (storedAccessToken) {
       setAccessToken(storedAccessToken);
     }
@@ -75,17 +82,23 @@ function App() {
       setRefreshToken(storedRefreshToken);
     }
 
-    // Lặp lại gửi refreshToken mỗi khi accessToken hết hạn
+    // Thiết lập một khoảng thời gian để làm mới access token trước khi nó hết hạn
     const interval = setInterval(() => {
       handleRefreshToken();
-    }, 3580 * 1000); // 2580 seconds, để đảm bảo refreshToken được gửi trước khi accessToken hết hạn
+    }, 3580 * 1000); // Làm mới token mỗi 3580 giây để đảm bảo việc này được thực hiện trước khi access token hết hạn
 
+    // Dọn dẹp khoảng thời gian khi component bị gỡ bỏ
     return () => clearInterval(interval);
-  }, [accessToken]);
+  }, [accessToken]); // Mảng phụ thuộc bao gồm accessToken để chạy lại hiệu ứng khi nó thay đổi
+
+  /**
+   * Làm mới access token một cách bất đồng bộ sử dụng refresh token đã lưu.
+   */
   const handleRefreshToken = async () => {
     try {
+      // Yêu cầu làm mới access token
       const response = await axios.post(
-        `https://asm03-nodejs-server.onrender.com/auth/refreshToken`,
+        `http://localhost:5000/auth/refreshToken`,
         {
           token: refreshToken,
         },
@@ -94,14 +107,18 @@ function App() {
           withCredentials: true,
         }
       );
+
+      // Cập nhật trạng thái và local storage với access token mới
       const newAccessToken = response.data.accessToken;
       setAccessToken(newAccessToken);
       localStorage.setItem("accessToken", newAccessToken);
     } catch (error) {
-      console.error("Error refreshing token:", error);
+      // Ghi lỗi nếu việc làm mới token thất bại
+      console.error("Lỗi khi làm mới token:", error);
     }
   };
+
+  // Hiển thị các tuyến đường của ứng dụng
   return <RouterProvider router={router} />;
 }
-
 export default App;

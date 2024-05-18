@@ -16,16 +16,13 @@ export default OrderPage;
 export async function loader() {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await axios.get(
-      `https://asm03-nodejs-server.onrender.com/shop/order`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get(`http://localhost:5000/shop/order`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      withCredentials: true,
+    });
     console.log(response.data);
     return response.data;
   } catch (error) {

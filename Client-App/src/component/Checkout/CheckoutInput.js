@@ -25,7 +25,7 @@ const CheckoutInput = () => {
     e.preventDefault();
     axios
       .post(
-        `https://asm03-nodejs-server.onrender.com/shop/order`,
+        `http://localhost:5000/shop/order`,
         {
           ...formCheckOut,
           totalPrice: parseInt(totalPrice),

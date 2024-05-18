@@ -52,14 +52,14 @@ Dự án này là một máy chủ Node.js cung cấp dữ liệu dạng JSON th
 
 ## End point
 
-- Admin:
+- ### Admin:
   - /search-product: tìm kiếm sản phẩm
   - /all-product: trả về tất cả sản phẩm
   - /dasboard: trả về các dữ liệu thống kê cho trang dashboard
   - /new-product: thêm sản phẩm mới
   - /update-product: cập nhật chi tiết sản phẩm
   - .....
-- Client:
+- ### Client:
   - /all-product(get): trả về tất cả sản phẩm
   - /detail-product(get): trả về thông tin chi tiết của sản phẩm
   - /add-cart(post): thêm sản phẩm vào giỏ hàng
@@ -67,7 +67,7 @@ Dự án này là một máy chủ Node.js cung cấp dữ liệu dạng JSON th
   - /delete-cart(post): xóa sản phẩm khỏi giỏ hàng
   - /order(post): thêm order
   - /order-detail(post): trả về chi tiết của order
-- Auth:
+- ### Auth:
   - /signup: thêm người dùng mới
   - /login: đăng nhập
 

@@ -2,29 +2,11 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const nodemailer = require("nodemailer");
 dotenv.config();
 let refreshTokens = [];
 const { validationResult } = require("express-validator");
-const sendEmailService = async (email, subject, html) => {
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      // TODO: replace `user` and `pass` values from <https://forwardemail.net>
-      user: "caoboi520@gmail.com",
-      pass: "dcnzdobumhlxmjrf",
-    },
-  });
-  const info = await transporter.sendMail({
-    from: '"Thắng Phạm 👻" <caoboi520@gmail.com>', // sender address
-    to: email, // list of receivers
-    subject: subject, // Subject line
-    html: html, // html body
-  });
-  return info;
-};
+const { sendEmailService } = require("../service/EmailService");
+
 exports.postSignup = async (req, res, next) => {
   const { fullname, email, password, phone, role } = req.body;
   const error = validationResult(req);
@@ -104,6 +86,7 @@ exports.postLogin = async (req, res, next) => {
           role: user.role,
         });
       };
+      //phân quyền
       if (user.role === "client") {
         createJWT(client);
       } else if (user.role === "admin") {

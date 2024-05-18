@@ -18,7 +18,7 @@ export async function loader({ params }) {
   const accessToken = localStorage.getItem("accessToken");
 
   const response = await axios.post(
-    `https://asm03-nodejs-server.onrender.com/shop/order-detail`,
+    `http://localhost:5000/shop/order-detail`,
     {
       OrderId: id,
     },
